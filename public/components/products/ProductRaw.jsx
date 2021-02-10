@@ -33,12 +33,12 @@ export const ProductRaw = (props) => {
       <TableCell align="center">{product.units}</TableCell>
       <TableCell align="right">
         <IconButton>
-          <EditIcon/>
+          <EditIcon />
         </IconButton>
       </TableCell>
       <TableCell align="right">
-        <IconButton>
-          <DeleteIcon/>
+        <IconButton onClick={() => props.onDeleteProduct(product.id)}>
+          <DeleteIcon />
         </IconButton>
       </TableCell>
     </TableRow>

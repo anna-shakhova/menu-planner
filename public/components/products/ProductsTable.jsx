@@ -46,7 +46,7 @@ export const ProductsTable = (props) => {
             <TableCell align="right" width="50"></TableCell>
           </TableRow>
         </TableHead>
-        <ProductsList {...props}/>
+        <ProductsList {...props} />
       </Table>
     </TableContainer>
   );

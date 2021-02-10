@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const AddProductForm = (props) => {
-  console.log(props.onAddProduct)
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);

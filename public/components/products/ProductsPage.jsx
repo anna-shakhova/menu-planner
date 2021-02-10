@@ -1,25 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import { ProductsTable } from './ProductsTable.jsx';
-import { AddProductForm } from './AddProductForm.jsx';
+import { ProductsTable } from './ProductsTable';
+import { AddProductForm } from './AddProductForm';
 
 export const ProductsPage = () => {
   const [products, setProducts] = useState([]);
 
   const handleAddProduct = (newProduct) => {
     setProducts([...products, newProduct]);
-  }
+  };
+
+  const handleDeleteProduct = (id) => {
+    const remainingProducts = products.filter((el) => el.id !== id);
+    setProducts(remainingProducts);
+    fetch('http://localhost:3001/product', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    })
+      .then(res => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     fetch('http://localhost:3001/product')
-      .then(res => res.json())
+      .then((res) => res.json())
       .then((data) => setProducts(data.products))
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   }, []);
 
   return (
     <div>
       <AddProductForm onAddProduct={handleAddProduct}></AddProductForm>
-      <ProductsTable products={products}/>
+      <ProductsTable products={products} onDeleteProduct={handleDeleteProduct} />
     </div>
   );
 };
