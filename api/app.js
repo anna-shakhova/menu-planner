@@ -1,7 +1,6 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
-const apiMocker = require('connect-api-mocker');
 const cors = require('cors');
 
 const { sessionStore } = require('./dbConnect.js');
@@ -12,7 +11,9 @@ const userMiddleware = require('./middlewares/user.js');
 // const { indexRouter } = require('./routes/index.js');
 // const { authRouter } = require("./routes/auth.js");
 // const { userRouter } = require("./routes/user.js");
-const productRouter = require("./routes/product.router");
+const productsRouter = require("./routes/products.router");
+const recipesRouter = require("./routes/recipes.router");
+const apiRouter = require("./routes/api.router");
 
 const app = express();
 
@@ -42,12 +43,13 @@ app.use(express.urlencoded({ extended: false }));
 // );
 
 //app.use(userMiddleware);
-app.use(apiMocker('/api', 'api/mocks/api'))
 
 //app.use('/', (req,res) => res.send('express'));
 // app.use('/auth', authRouter);
 // app.use('/user', userRouter);
-app.use('/product', productRouter);
+app.use('/products', productsRouter);
+app.use('/recipes', recipesRouter);
+app.use('/api', apiRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);

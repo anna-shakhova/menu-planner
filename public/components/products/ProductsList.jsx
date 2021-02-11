@@ -17,6 +17,6 @@ export const ProductsList = (props) => {
     );
   }
   return (
-    <TableBody></TableBody>
+    <TableBody />
   );
 }

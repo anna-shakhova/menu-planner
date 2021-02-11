@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client:start": "webpack serve --open",
     "server:start": "nodemon api/server.js",
-    "start": "npm run client:start && npm run server:start"
+    "start": "npm run server:start & npm run client:start"
   },
   "author": "",
   "license": "ISC",
@@ -45,6 +45,7 @@
     "express-session": "^1.17.1",
     "hbs": "^4.1.1",
     "mongoose": "^5.11.14",
+    "node-fetch": "^2.6.1",
     "nodemon": "^2.0.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
