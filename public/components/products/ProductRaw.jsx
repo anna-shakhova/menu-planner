@@ -31,11 +31,11 @@ export const ProductRaw = (props) => {
       <TableCell align="left">{product.name}</TableCell>
       <TableCell align="center">{product.quantity}</TableCell>
       <TableCell align="center">{product.units}</TableCell>
-      <TableCell align="right">
+{/*      <TableCell align="right">
         <IconButton>
           <EditIcon />
         </IconButton>
-      </TableCell>
+      </TableCell>*/}
       <TableCell align="right">
         <IconButton onClick={() => onDeleteProduct(product.id)}>
           <DeleteIcon />

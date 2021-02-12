@@ -1,18 +1,40 @@
 import React from 'react';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Grid from '@material-ui/core/Grid';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar'
 import { DialogTitleWithCross } from '../common/DialogTitleWithCross';
 
+const useStyles = makeStyles((theme) => ({
+  ingredients: {
+    columns: 2,
+  },
+  listItem: {
+    padding: 0,
+  },
+  instructions: {
+    paddingTop: 10,
+    color: theme.palette.text.primary,
+  },
+  primary: {
+    color: '#ffffff',
+    backgroundColor: theme.palette.primary.light,
+  },
+}));
+
 export const RecipeDetails = (props) => {
+  const classes = useStyles();
   const { open, onClose, recipe } = props;
+
   return (
     <Dialog
       open={open}
@@ -20,53 +42,50 @@ export const RecipeDetails = (props) => {
       maxWidth="lg"
     >
       <DialogTitleWithCross title={recipe.title} onClose={onClose} />
-      <form>
-        <DialogContent>
-          <Grid container spacing={2}>
+      <DialogContent>
+        <Grid container spacing={2}>
+          <Grid item>
             <Grid item>
-              <Grid item xs>
-                <img alt={recipe.title + ' image'} src={recipe.imagelink} />
-              </Grid>
-            </Grid>
-            <Grid item xs={8} sm>
-              <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs>
-                  <div>
-                    Ingredients:
-                    <ul className="ingredients-list">
-                      {recipe.ingredients.map((el, i) =>
-                        <li key={recipe.spoonacular_id + '_' + i}>
-                          {el.name + ', ' + el.amount + ' ' + el.units}
-                        </li>)}
-                    </ul>
-                  </div>
-                </Grid>
-              </Grid>
+              <img alt={recipe.title + ' image'} src={recipe.imagelink} />
             </Grid>
             <Grid item>
-              <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs>
-                  <Typography variant="body2" color="textSecondary">
-                    Servings: {recipe.servings}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    Cooking time: {recipe.readyInMinutes} minutes
-                  </Typography>
-                </Grid>
-              </Grid>
+              <Typography variant="subtitle2" color="textSecondary">
+                Servings: {recipe.servings}
+              </Typography>
+              <Typography variant="subtitle2" color="textSecondary">
+                Cooking time: {recipe.readyInMinutes} minutes
+              </Typography>
             </Grid>
           </Grid>
-          <DialogContentText>
-            <div>
-              Instructions:
-              <ol>
-                {recipe.instructions.map((el, i) => <li key={recipe.spoonacular_id + '_step_' + i}>{el.description}</li>)}
-              </ol>
-            </div>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions />
-      </form>
+          <Grid item xs>
+            <Typography variant="body1">
+              Ingredients:
+            </Typography>
+            <List className={classes.ingredients}>
+              {recipe.ingredients.map((el, i) =>
+                <ListItem key={recipe.spoonacular_id + '_ingr_' + i} className={classes.listItem}>
+                  <ListItemText primary={el.name} secondary={el.amount + ' ' + el.units} />
+                </ListItem>,
+              )}
+            </List>
+          </Grid>
+        </Grid>
+        <Divider />
+        <DialogContentText component="div" className={classes.instructions}>
+          Instructions
+          <List>
+            {recipe.instructions.map((el, i) =>
+              <ListItem key={recipe.spoonacular_id + '_step_' + i}>
+                <ListItemIcon>
+                  <Avatar className={classes.primary}>{i + 1}</Avatar>
+                </ListItemIcon>
+                <ListItemText primary={el.description} />
+              </ListItem>,
+            )}
+          </List>
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions />
     </Dialog>
   );
 };

@@ -53,9 +53,9 @@ export const RecipeCard = (props) => {
         <Button size="small" color="primary" onClick={handleClickOpen}>
           Details
         </Button>
-        <Button size="small" color="primary">
+{/*        <Button size="small" color="primary">
           Mark cooked
-        </Button>
+        </Button>*/}
         <Button size="small" color="secondary" onClick={() => onDelete(recipe.spoonacular_id)}>
           Delete
         </Button>

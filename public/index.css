@@ -6,8 +6,3 @@ body {
   align-self: flex-end;
 }
 
-.ingredients-list {
-  columns: 2;
-  -webkit-columns: 2;
-  -moz-columns: 2;
-}

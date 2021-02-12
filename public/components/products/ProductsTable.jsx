@@ -41,7 +41,7 @@ export const ProductsTable = (props) => {
             <TableCell>Ingredient</TableCell>
             <TableCell align="center">Quantity</TableCell>
             <TableCell align="center">Units</TableCell>
-            <TableCell align="right" width="50"></TableCell>
+            {/*<TableCell align="right" width="50"></TableCell>*/}
             <TableCell align="right" width="50"></TableCell>
           </TableRow>
         </TableHead>
