@@ -8,7 +8,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 export const ProductRaw = (props) => {
-  const product = props.product;
+  const { product, onDeleteProduct } = props;
   // const [state, setState] = React.useState();
   //
   // const handleChange = (event) => {
@@ -37,7 +37,7 @@ export const ProductRaw = (props) => {
         </IconButton>
       </TableCell>
       <TableCell align="right">
-        <IconButton onClick={() => props.onDeleteProduct(product.id)}>
+        <IconButton onClick={() => onDeleteProduct(product.id)}>
           <DeleteIcon />
         </IconButton>
       </TableCell>

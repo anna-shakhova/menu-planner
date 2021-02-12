@@ -5,7 +5,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { DialogTitleWithCross } from './DialogTitleWithCross';
+import { DialogTitleWithCross } from '../../common/DialogTitleWithCross';
 import { FindRecipeForm } from './FindRecipeForm';
 import { FoundRecipesList } from './FoundRecipesList';
 
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 export const FindRecipeDialog = (props) => {
   const classes = useStyles();
   const [recipes, setRecipes] = useState([]);
-  const { open, onRecipeChoose } = props;
+  const { open, onRecipeChoose, onClose } = props;
 
   const onFindRecipes = (arr) => {
     setRecipes(arr);
@@ -31,7 +31,7 @@ export const FindRecipeDialog = (props) => {
       fullWidth={true}
       maxWidth="lg"
     >
-      <DialogTitleWithCross title="Find recipes" onClose={() => props.onClose()} />
+      <DialogTitleWithCross title="Find recipes" onClose={onClose} />
       <DialogContent className={classes.DialogContent}>
         <DialogContentText>
           Fill the fields to find recipes.

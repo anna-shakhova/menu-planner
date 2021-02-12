@@ -1,10 +1,11 @@
+const fetch = require('node-fetch');
 const Product = require('../models/product.model');
 
 const getAllProducts = async (req, res) => {
   try {
-    const productsDB = await Product.find();
+    const productsDB = await Product.find().lean();
     const products = productsDB.map((el) => {
-      return { id: el.id, name: el.name, quantity: el.quantity, units: el.units };
+      return { ...el, id: el._id };
     });
     res.json({ products });
   } catch (err) {
@@ -13,9 +14,58 @@ const getAllProducts = async (req, res) => {
   }
 };
 
+const pcsToGrams = async (product) => {
+  const queryUri = 'https://api.spoonacular.com/recipes/convert'
+    + `?ingredientName=${product.name}`
+    + `&sourceAmount=${product.quantity}`
+    + `&sourceUnit=''`
+    + `&targetUnit='grams'`
+    + `&apiKey=${process.env.API_KEY}`;
+
+  try {
+    const response = await fetch(queryUri);
+    const result = await response.json();
+    if (result.status === 'failure') {
+      console.log('convert amounts failed');
+      console.log(queryUri);
+    }
+    return {
+      metricQuantity: Math.round(result.targetAmount),
+      metricUnits: 'g',
+    };
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const convertToMetric = async (product) => {
+  switch (product.units) {
+    case 'kg':
+      return {
+        metricQuantity: product.quantity * 1000,
+        metricUnits: 'g',
+      };
+    case 'l':
+      return {
+        metricQuantity: product.quantity * 1000,
+        metricUnits: 'ml',
+      };
+    case 'pcs': {
+      const { metricQuantity, metricUnits } = await pcsToGrams(product);
+      return { metricQuantity, metricUnits };
+    }
+    default:
+      return {
+        metricQuantity: product.quantity,
+        metricUnits: product.units,
+      };
+  }
+};
+
 const addProduct = async (req, res) => {
   try {
-    const newProduct = await Product.create(req.body);
+    const { metricQuantity, metricUnits } = await convertToMetric(req.body);
+    const newProduct = await Product.create({ ...req.body, metricQuantity, metricUnits });
     res.json({ id: newProduct.id });
   } catch (err) {
     console.error(err.message);
@@ -24,10 +74,8 @@ const addProduct = async (req, res) => {
 };
 
 const deleteProduct = async (req, res) => {
-  console.log(req.body)
   try {
-    const productToDelete = await Product.findOneAndDelete({ _id: req.body.id });
-    console.log(productToDelete);
+    await Product.findOneAndDelete({ _id: req.body.id });
     res.json({ message: 'product deleted' });
   } catch (err) {
     console.error(err.message);

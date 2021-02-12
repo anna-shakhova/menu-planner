@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const AddProductForm = (props) => {
   const classes = useStyles();
-  const open = props.open;
+  const { open, onClose } = props;
 
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState(0);
@@ -57,7 +57,7 @@ export const AddProductForm = (props) => {
   };
 
   return (
-    <Dialog open={open} onClose={() => props.onClose()} aria-labelledby="form-dialog-title">
+    <Dialog open={open} onClose={() => onClose()} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Add product</DialogTitle>
       <form>
         <DialogContent>
@@ -105,7 +105,7 @@ export const AddProductForm = (props) => {
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => props.onClose()} color="primary">
+          <Button onClick={() => onClose()} color="primary">
             Cancel
           </Button>
           <Button type="submit" onClick={addProduct} color="primary">

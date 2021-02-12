@@ -38,10 +38,7 @@ export const FindRecipeForm = (props) => {
 
     fetch(queryUri)
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        props.onFindRecipes(data);
-      })
+      .then((data) => props.onFindRecipes(data))
       .catch((err) => console.log(err));
   };
 

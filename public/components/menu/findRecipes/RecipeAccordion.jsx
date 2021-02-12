@@ -44,7 +44,6 @@ export const RecipeAccordion = (props) => {
       body: JSON.stringify(recipe),
     })
       .then(() => props.onRecipeChoose(recipe))
-     // .then((data) => props.onRecipeChoose(recipe))
       .catch((err) => console.log(err));
   };
 
@@ -64,16 +63,12 @@ export const RecipeAccordion = (props) => {
             <Grid item xs>
               <FormControlLabel
                 aria-label="Acknowledge"
-                onClick={(event) => {
-                  //event.preventDefault();
-                  addRecipeToMenu(event);
-                }}
+                onClick={(event) => addRecipeToMenu(event)}
                 onFocus={(event) => event.stopPropagation()}
                 control={<Button variant="contained" className={classes.button}>
                   Add to menu
                 </Button>}
               />
-
             </Grid>
           </Grid>
           <Grid item xs={12} sm container>
@@ -92,7 +87,7 @@ export const RecipeAccordion = (props) => {
                   Servings: {recipe.servings}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Cooking time: {recipe.readyInMinutes}
+                  Cooking time: {recipe.readyInMinutes} minutes
                 </Typography>
               </Grid>
             </Grid>

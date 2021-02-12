@@ -12,25 +12,28 @@ export const MenuPage = () => {
     setRecipes([...recipes, newRecipe]);
   };
 
-  // const handleDeleteProduct = (id) => {
-  //   const remainingProducts = products.filter((el) => el.id !== id);
-  //   setProducts(remainingProducts);
-  //   fetch('http://localhost:3001/product', {
-  //     method: 'DELETE',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ id }),
-  //   })
-  //     .then(res => res.json())
-  //     .then((data) => console.log(data))
-  //     .catch((err) => console.log(err));
-  // };
+  const handleDeleteRecipe = (spoonacular_id) => {
+    const remainingRecipes = recipes.filter((el) => el.spoonacular_id !== spoonacular_id);
+    setRecipes(remainingRecipes);
+    fetch('http://localhost:3001/recipes', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ spoonacular_id }),
+    })
+      .then(res => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     fetch('http://localhost:3001/recipes')
       .then((res) => res.json())
-      .then((data) => setRecipes(data.recipes))
+      .then((data) => {
+        console.log(data);
+        setRecipes(data.recipes);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -50,7 +53,7 @@ export const MenuPage = () => {
 
       <FindRecipeDialog open={formOpen} onClose={handleFormClose} onRecipeChoose={handleRecipeChoose} />
 
-      <MenuRecipesList recipes={recipes}/>
+      <MenuRecipesList recipes={recipes} onDelete={handleDeleteRecipe}/>
     </div>
   );
 };

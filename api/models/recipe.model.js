@@ -8,6 +8,10 @@ const RecipeSchema = new mongoose.Schema({
     name: String,
     amount: Number,
     units: String,
+    metricAmount: Number,
+    metricUnits: String,
+    consistency: String,
+    aisle: String,
   }],
   spoonacular_id: { type: Number, required: true },
   instructions: [{

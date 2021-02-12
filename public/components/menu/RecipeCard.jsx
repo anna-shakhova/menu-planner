@@ -7,10 +7,14 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { RecipeDetails } from './RecipeDetails';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 300,
+    width: 300,
+  },
+  title: {
+    height: 60,
   },
   media: {
     height: 150,
@@ -18,8 +22,18 @@ const useStyles = makeStyles({
 });
 
 export const RecipeCard = (props) => {
-  const recipe = props.recipe;
+  const { recipe, onDelete } = props;
   const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Card className={classes.root}>
@@ -30,22 +44,24 @@ export const RecipeCard = (props) => {
           title={recipe.title}
         />
         <CardContent>
-          <Typography gutterBottom variant="h6" component="h5">
+          <Typography gutterBottom variant="h6" component="h5" className={classes.title}>
             {recipe.title}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={handleClickOpen}>
           Details
         </Button>
         <Button size="small" color="primary">
           Mark cooked
         </Button>
-        <Button size="small" color="secondary">
+        <Button size="small" color="secondary" onClick={() => onDelete(recipe.spoonacular_id)}>
           Delete
         </Button>
       </CardActions>
+
+      <RecipeDetails open={open} onClose={handleClose} recipe={recipe} />
     </Card>
   );
 };

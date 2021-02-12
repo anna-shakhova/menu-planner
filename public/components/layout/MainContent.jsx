@@ -1,6 +1,7 @@
 import React from 'react';
 import { ProductsPage } from '../products/ProductsPage';
 import { MenuPage } from '../menu/MenuPage';
+import { ShoppingList } from '../shoppingList/ShoppingList';
 
 export const MainContent = (props) => {
   switch (props.menuItem) {
@@ -9,7 +10,7 @@ export const MainContent = (props) => {
     case 'Menu':
       return <MenuPage />;
     case 'Shopping list':
-      return <div>Shopping list</div>;
+      return <ShoppingList />;
     default:
       return <div />;
   };
