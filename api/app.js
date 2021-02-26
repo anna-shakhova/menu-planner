@@ -4,9 +4,6 @@ const path = require('path');
 const cors = require('cors');
 
 const { sessionStore } = require('./dbConnect.js');
-const errorMiddleware = require('./middlewares/error.js');
-const notFoundMiddleware = require('./middlewares/notfound404.js');
-const userMiddleware = require('./middlewares/user.js');
 
 // const { indexRouter } = require('./routes/index.js');
 // const { authRouter } = require("./routes/auth.js");
@@ -26,7 +23,6 @@ app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// app.use(express.static(path.join(_dirname, 'public')));
 
 // app.use(
 //   session({
@@ -50,8 +46,5 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/products', productsRouter);
 app.use('/recipes', recipesRouter);
 app.use('/api', apiRouter);
-
-app.use(notFoundMiddleware);
-app.use(errorMiddleware);
 
 module.exports = app;

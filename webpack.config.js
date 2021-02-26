@@ -8,6 +8,7 @@ module.exports = {
     index: ['@babel/polyfill', './public/index.js'],
   },
   devServer: {
+    historyApiFallback: true,
     port: 3000,
     contentBase: './dist',
     hot: true,
