@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import { RecipeCard } from './RecipeCard/RecipeCard';
 import { RecipeDetails } from './RecipeDetails/RecipeDetails';
 
-export const MenuRecipesList = (props) => {
-  const { recipes, onDelete } = props;
+export const MenuRecipesList = () => {
+  const recipes = useSelector((state) => state.recipesReducer.recipes);
 
   const [open, setOpen] = useState(false);
   const [recipeDetailed, setRecipe] = useState({});
@@ -29,7 +30,7 @@ export const MenuRecipesList = (props) => {
     >
       {recipes.map((recipe) =>
         <Grid item key={recipe.spoonacular_id}>
-          <RecipeCard recipe={recipe} onDelete={onDelete} handleClickOpen={handleClickOpen} />
+          <RecipeCard recipe={recipe} handleClickOpen={handleClickOpen} />
         </Grid>)}
 
       {open && <RecipeDetails onClose={handleClose} recipe={recipeDetailed} />}

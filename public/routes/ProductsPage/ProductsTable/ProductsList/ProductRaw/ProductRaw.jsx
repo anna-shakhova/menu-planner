@@ -11,7 +11,7 @@ export const ProductRaw = ({ product }) => {
   const dispatch = useDispatch();
 
   const handleDeleteProduct = () => {
-    dispatch(deleteProductSaga({ id: product.id }));
+    dispatch(deleteProductSaga(product.id));
   };
 
   return (

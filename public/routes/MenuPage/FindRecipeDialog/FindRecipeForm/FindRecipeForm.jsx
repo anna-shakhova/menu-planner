@@ -1,39 +1,28 @@
 import React, { useState } from 'react';
-
+import { useDispatch } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-
 import { CustomSelect } from '../../../../components/CustomSelect/CustomSelect';
-
 import { CUISINES, MEAL_TYPES } from '../../../../constants';
+import { findRecipesSaga } from '../../../../redux/modules/recipes/actions';
 
-export const FindRecipeForm = (props) => {
+export const FindRecipeForm = () => {
   const [query, setQuery] = useState({ cuisine: '', type: '' });
 
   const changeQuery = (field, value) => {
     setQuery({ ...query, [field]: value });
   };
 
+  const dispatch = useDispatch();
+
   const findRecipes = (event) => {
     event.preventDefault();
-    const queryUri = 'http://localhost:3001/api/recipes/complexSearch'
-      + Object.keys(query).reduce((str, field) => {
-        if (query[field]) {
-          str += (str === '') ? '?' : '&';
-          str += field + '=' + query[field];
-        }
-        return str;
-      }, '');
-
-    fetch(queryUri)
-      .then((res) => res.json())
-      .then((data) => props.onFindRecipes(data))
-      .catch((err) => console.log(err));
+    dispatch(findRecipesSaga(query));
   };
 
   return (
-    <form>
+    <>
       <Grid container spacing={3}>
         <Grid item xs={8}>
           <TextField
@@ -108,6 +97,6 @@ export const FindRecipeForm = (props) => {
           </Button>
         </Grid>
       </Grid>
-    </form>
+    </>
   );
 };

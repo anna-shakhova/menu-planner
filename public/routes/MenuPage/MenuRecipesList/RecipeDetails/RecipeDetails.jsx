@@ -31,9 +31,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const RecipeDetails = (props) => {
+export const RecipeDetails = ({ onClose, recipe }) => {
   const classes = useStyles();
-  const { onClose, recipe } = props;
 
   return (
     <Dialog

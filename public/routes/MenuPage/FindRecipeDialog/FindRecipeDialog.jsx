@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -15,14 +16,8 @@ const useStyles = makeStyles({
   },
 });
 
-export const FindRecipeDialog = (props) => {
+export const FindRecipeDialog = ({ open, handleClose }) => {
   const classes = useStyles();
-  const [recipes, setRecipes] = useState([]);
-  const { open, onRecipeChoose, onClose } = props;
-
-  const onFindRecipes = (arr) => {
-    setRecipes(arr);
-  };
 
   return (
     <Dialog
@@ -30,13 +25,13 @@ export const FindRecipeDialog = (props) => {
       fullWidth
       maxWidth="lg"
     >
-      <DialogTitleWithCross title="Find recipes" onClose={onClose} />
+      <DialogTitleWithCross title="Find recipes" onClose={handleClose} />
       <DialogContent>
         <DialogContentText>
           Fill the fields to find recipes.
         </DialogContentText>
-        <FindRecipeForm className={classes.form} onFindRecipes={onFindRecipes} />
-        <FoundRecipesList recipes={recipes} onRecipeChoose={onRecipeChoose} />
+        <FindRecipeForm className={classes.form} />
+        <FoundRecipesList />
       </DialogContent>
       <DialogActions />
     </Dialog>
