@@ -5,9 +5,8 @@ import { fetchData } from '../../../utils/fetchData';
 
 function* addProductWorker(action) {
   try {
-    const data = yield call(() => fetchData('http://localhost:3001/products', 'POST', action.payload));
-    console.log('addProductWorker data', data)
-    yield put(addProductAC(data));
+    const product = yield call(() => fetchData('http://localhost:3001/products', 'POST', action.payload));
+    yield put(addProductAC(product));
   } catch (err) {
     console.log(err);
   }
