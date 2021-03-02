@@ -8,6 +8,7 @@ import { MenuPage } from '../../../routes/MenuPage/MenuPage';
 import { ShoppingList } from '../../../routes/ShoppingList/ShoppingList';
 
 import { getProductsSaga } from '../../../redux/modules/products/actions';
+import { getRecipesSaga } from '../../../redux/modules/recipes/actions';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -30,6 +31,7 @@ export const MainContent = () => {
 
   useEffect(() => {
     dispatch(getProductsSaga());
+    dispatch(getRecipesSaga());
   }, []);
 
   return (

@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -14,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
+import { addRecipeSaga } from '../../../../../redux/modules/recipes/actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,22 +37,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const RecipeAccordion = (props) => {
+export const RecipeAccordion = ({ recipe }) => {
   const classes = useStyles();
-  const { recipe } = props;
+
+  const dispatch = useDispatch();
 
   const addRecipeToMenu = (event) => {
     event.stopPropagation();
-
-    fetch('http://localhost:3001/recipes', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(recipe),
-    })
-      .then(() => props.onRecipeChoose(recipe))
-      .catch((err) => console.log(err));
+    dispatch(addRecipeSaga(recipe));
   };
 
   return (

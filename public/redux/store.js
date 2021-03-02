@@ -4,11 +4,14 @@ import saga from 'redux-saga';
 import { all } from 'redux-saga/effects';
 
 import { productsReducer } from './modules/products/reducer';
+import { recipesReducer } from './modules/recipes/reducer';
 
 import { sagaProducts } from './modules/products/saga';
+import { sagaRecipes } from './modules/recipes/saga';
 
 const reducers = combineReducers({
   productsReducer,
+  recipesReducer,
 });
 
 const sagaMiddleware = saga();
@@ -23,6 +26,7 @@ sagaMiddleware.run(
   function* () {
     yield all([
       sagaProducts(),
+      sagaRecipes(),
     ]);
   },
 );
