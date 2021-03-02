@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -12,6 +13,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+import { addProductSaga } from '../../../redux/modules/products/actions';
+
 import { PRODUCT_UNITS } from '../../../constants';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,14 +27,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const AddProductForm = (props) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const { open, handleFormClose } = props;
 
-  const [product, setProduct] = useState({
+  const emptyProduct = {
     name: '',
     quantity: 0,
     units: '',
-  });
+  };
+  const [product, setProduct] = useState(emptyProduct);
 
   const changeProduct = (field, value) => {
     setProduct({ ...product, [field]: value });
@@ -39,23 +44,9 @@ export const AddProductForm = (props) => {
 
   const addProduct = (event) => {
     event.preventDefault();
+    dispatch(addProductSaga(product));
     props.handleFormClose();
-    setProduct({
-      name: '',
-      quantity: 0,
-      units: '',
-    });
-
-    fetch('http://localhost:3001/products', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(product),
-    })
-      .then((res) => res.json())
-      .then((data) => props.onAddProduct({ id: data.id, ...product }))
-      .catch((err) => console.log(err));
+    setProduct(emptyProduct);
   };
 
   return (

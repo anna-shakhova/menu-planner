@@ -66,7 +66,7 @@ const addProduct = async (req, res) => {
   try {
     const { metricQuantity, metricUnits } = await convertToMetric(req.body);
     const newProduct = await Product.create({ ...req.body, metricQuantity, metricUnits });
-    res.json({ id: newProduct.id });
+    res.json({ ...newProduct._doc, id: newProduct.id });
   } catch (err) {
     console.error(err.message);
     res.sendStatus(500);

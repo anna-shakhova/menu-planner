@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { ProductsPage } from '../../../routes/ProductsPage/ProductsPage';
 import { MenuPage } from '../../../routes/MenuPage/MenuPage';
 import { ShoppingList } from '../../../routes/ShoppingList/ShoppingList';
+
+import { getProductsSaga } from '../../../redux/modules/products/actions';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -23,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
 
 export const MainContent = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProductsSaga());
+  }, []);
 
   return (
     <main className={classes.content}>
