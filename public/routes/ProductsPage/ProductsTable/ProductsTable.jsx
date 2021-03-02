@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const ProductsTable = (props) => {
+export const ProductsTable = () => {
   const classes = useStyles();
 
   return (
@@ -31,7 +31,7 @@ export const ProductsTable = (props) => {
             <TableCell align="right" width="50" />
           </TableRow>
         </TableHead>
-        <ProductsList {...props} />
+        <ProductsList />
       </Table>
     </TableContainer>
   );
