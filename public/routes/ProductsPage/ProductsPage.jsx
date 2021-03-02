@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { ProductsTable } from './ProductsTable/ProductsTable';
 import { AddProductForm } from './AddProductForm/AddProductForm';
 
+import { getProductsSaga } from '../../redux/modules/products/actions';
+
 export const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [formOpen, setFormOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  console.log(products);
 
   const handleAddProduct = (newProduct) => {
     setProducts([...products, newProduct]);
@@ -30,6 +37,7 @@ export const ProductsPage = () => {
       .then((res) => res.json())
       .then((data) => setProducts(data.products))
       .catch((err) => console.log(err));
+    dispatch(getProductsSaga());
   }, []);
 
   const handleFormOpen = () => {
@@ -51,7 +59,7 @@ export const ProductsPage = () => {
         handleFormClose={handleFormClose}
       />
       <ProductsTable
-        products={products}
+        // products={products}
         onDeleteProduct={handleDeleteProduct}
       />
     </>
