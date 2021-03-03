@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { FC, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -8,49 +9,55 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import InputLabel from '@material-ui/core/InputLabel';
+/*import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import Select from '@material-ui/core/Select';*/
 
 import { addProductSaga } from '../../../redux/modules/products/actions';
-
 import { PRODUCT_UNITS } from '../../../constants';
+import { CustomSelect } from "../../../components/CustomSelect/CustomSelect";
 
-const useStyles = makeStyles((theme) => ({
+interface AddProductFormProps {
+  handleFormClose: () => void,
+}
+
+/*const useStyles = makeStyles((theme) => ({
   formControl: {
     minWidth: 120,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
-}));
+}));*/
 
-export const AddProductForm = (props) => {
+const initialProduct = {
+  name: '',
+  quantity: 0,
+  units: '',
+};
+
+export const AddProductForm: FC<AddProductFormProps> = ({ handleFormClose }) => {
   const dispatch = useDispatch();
-  const classes = useStyles();
-  const { open, handleFormClose } = props;
+  // const classes = useStyles();
 
-  const emptyProduct = {
-    name: '',
-    quantity: 0,
-    units: '',
-  };
-  const [product, setProduct] = useState(emptyProduct);
+  const [product, setProduct] = useState(initialProduct);
 
-  const changeProduct = (field, value) => {
+  const changeProduct = useCallback((field: string, value: string) => {
+    console.log(product)
+    console.log(field, value)
     setProduct({ ...product, [field]: value });
-  };
+  }, [product]);
 
-  const addProduct = (event) => {
+  console.log(product)
+  const addProduct = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     dispatch(addProductSaga(product));
-    props.handleFormClose();
-    setProduct(emptyProduct);
+    handleFormClose();
   };
 
   return (
-    <Dialog open={open} onClose={handleFormClose}>
+    <Dialog open={true} onClose={handleFormClose}>
       <DialogTitle id="form-dialog-title">Add product</DialogTitle>
       <DialogContent>
         <DialogContentText>
@@ -76,7 +83,14 @@ export const AddProductForm = (props) => {
           onChange={(event) => changeProduct('quantity', event.target.value)}
           fullWidth
         />
-        <FormControl className={classes.formControl}>
+        <CustomSelect
+          label="Units"
+          value={product.units}
+          fieldName="units"
+          onChange={changeProduct}
+          menuItems={PRODUCT_UNITS}
+        />
+{/*        <FormControl className={classes.formControl}>
           <InputLabel id="demo-simple-select-label">Units</InputLabel>
           <Select
             labelId="units-select-label"
@@ -86,7 +100,7 @@ export const AddProductForm = (props) => {
           >
             {PRODUCT_UNITS.map((unit) => <MenuItem value={unit} key={unit}>{unit}</MenuItem>)}
           </Select>
-        </FormControl>
+        </FormControl>*/}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleFormClose} color="primary">

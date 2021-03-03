@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import * as React from 'react';
+import { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,9 +7,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ProductsPage } from '../../../routes/ProductsPage/ProductsPage';
 import { MenuPage } from '../../../routes/MenuPage/MenuPage';
 import { ShoppingList } from '../../../routes/ShoppingList/ShoppingList';
-
 import { getProductsSaga } from '../../../redux/modules/products/actions';
 import { getRecipesSaga } from '../../../redux/modules/recipes/actions';
+import { calcShoppingListSaga } from '../../../redux/modules/shoppingList/actions';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -30,8 +31,10 @@ export const MainContent = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('dispatch products and recipes')
     dispatch(getProductsSaga());
     dispatch(getRecipesSaga());
+    dispatch(calcShoppingListSaga());
   }, []);
 
   return (

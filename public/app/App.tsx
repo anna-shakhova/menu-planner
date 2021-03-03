@@ -1,13 +1,12 @@
-import React from 'react';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import * as React from 'react';
+// import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
+import { Layout } from './Layout/Layout';
 import { store } from '../redux/store';
 
-import { Layout } from './Layout/Layout';
-
-const myTheme = createMuiTheme({
+/*const myTheme = createMuiTheme({
   palette: {
     primary: {
       light: '#6fbf73',
@@ -22,15 +21,15 @@ const myTheme = createMuiTheme({
       contrastText: '#000',
     },
   },
-});
+});*/
 
 export default () => {
   return (
     <Provider store={store}>
       {/*<ThemeProvider theme={myTheme}>*/}
-        <BrowserRouter>
-          <Layout />
-        </BrowserRouter>
+      <BrowserRouter>
+        <Layout />
+      </BrowserRouter>
       {/*</ThemeProvider>*/}
     </Provider>
   );

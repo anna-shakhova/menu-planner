@@ -1,10 +1,15 @@
-import React from 'react';
+import * as React from 'react';
+import { FC } from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
-export const ShoppingListRaw = (props) => {
-  const { ingredient } = props;
+import { Ingredient } from '../../../../types/shoppingList';
 
+interface ShoppingListRawProps {
+  ingredient: Ingredient
+}
+
+export const ShoppingListRaw: FC<ShoppingListRawProps> = ({ ingredient }) => {
   return (
     <TableRow key={ingredient.name}>
       <TableCell align="left">{ingredient.name}</TableCell>

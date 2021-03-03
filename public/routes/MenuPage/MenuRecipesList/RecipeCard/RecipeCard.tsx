@@ -1,4 +1,5 @@
-import React from 'react';
+import * as React from 'react';
+import { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -10,6 +11,12 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import { deleteRecipeSaga } from '../../../../redux/modules/recipes/actions';
+import { Recipe } from "../../../../types/recipe";
+
+interface RecipeCardProps {
+  recipe: Recipe,
+  handleClickOpen: (recipe: Recipe) => void,
+}
 
 const useStyles = makeStyles({
   root: {
@@ -23,14 +30,13 @@ const useStyles = makeStyles({
   },
 });
 
-export const RecipeCard = ({ recipe, handleClickOpen }) => {
+export const RecipeCard: FC<RecipeCardProps> = ({ recipe, handleClickOpen }) => {
   const classes = useStyles();
-
   const dispatch = useDispatch();
 
-  const handleDeleteRecipe = () => {
+  const handleDeleteRecipe = useCallback(() => {
     dispatch(deleteRecipeSaga(recipe.spoonacular_id));
-  };
+  }, []);
 
   return (
     <Card className={classes.root}>

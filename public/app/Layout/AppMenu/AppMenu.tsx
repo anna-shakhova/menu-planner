@@ -1,35 +1,15 @@
-import React from 'react';
+import * as React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import KitchenIcon from '@material-ui/icons/Kitchen';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
-const menuItems = [
-  {
-    text: 'Products',
-    icon: <KitchenIcon />,
-    link: 'products',
-  },
-  {
-    text: 'Menu',
-    icon: <MenuBookIcon />,
-    link: 'menu',
-  },
-  {
-    text: 'Shopping list',
-    icon: <ShoppingCartIcon />,
-    link: 'shoppingList',
-  },
-];
+import { APP_MENU_ITEMS } from '../../../constants';
 
 export const AppMenu = () => (
   <List>
-    {menuItems.map((item) => (
+    {APP_MENU_ITEMS.map((item) => (
       <ListItem
         button
         key={item.link}

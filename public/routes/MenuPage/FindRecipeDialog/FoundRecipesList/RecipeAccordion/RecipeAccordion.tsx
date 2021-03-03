@@ -1,10 +1,11 @@
 /**
  * TODO сделать единый компонент ингредиентов и инструкций для информации в меню и в поиске?
- * Не все данные могут присутствовать (например, количество ингредиентов)
- * Стили: с паддигами и без?
+ * TODO Не все данные могут присутствовать (например, количество ингредиентов)
+ * TODO Стили: с паддигами и без?
  */
 
-import React from 'react';
+import * as React from 'react';
+import { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -13,9 +14,14 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
+
 import { addRecipeSaga } from '../../../../../redux/modules/recipes/actions';
+import { Recipe } from "../../../../../types/recipe";
+
+interface RecipeAccordionProps {
+  recipe: Recipe
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,15 +43,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const RecipeAccordion = ({ recipe }) => {
+export const RecipeAccordion: FC<RecipeAccordionProps> = ({ recipe }) => {
   const classes = useStyles();
-
   const dispatch = useDispatch();
 
-  const addRecipeToMenu = (event) => {
+  const addRecipeToMenu = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     dispatch(addRecipeSaga(recipe));
-  };
+  }, []);
 
   return (
     <Accordion>
@@ -59,15 +64,13 @@ export const RecipeAccordion = ({ recipe }) => {
               <img className={classes.img} alt={`${recipe.title} image`} src={recipe.imagelink} />
             </Grid>
             <Grid item xs>
-              <FormControlLabel
+              <Button
+                variant="contained"
+                className={classes.button}
                 onClick={(event) => addRecipeToMenu(event)}
-                onFocus={(event) => event.stopPropagation()}
-                control={(
-                  <Button variant="contained" className={classes.button}>
-                    Add to menu
-                  </Button>
-                )}
-              />
+              >
+                Add to menu
+              </Button>
             </Grid>
           </Grid>
           <Grid item xs={12} sm container>

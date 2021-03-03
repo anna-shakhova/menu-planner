@@ -1,28 +1,48 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+
 import { CustomSelect } from '../../../../components/CustomSelect/CustomSelect';
 import { CUISINES, MEAL_TYPES } from '../../../../constants';
 import { findRecipesSaga } from '../../../../redux/modules/recipes/actions';
 
+const useStyles = makeStyles({
+  form: {
+    minHeight: 180,
+  },
+});
+
+const initQuery = {
+  query: '',
+  cuisine: '',
+  type: '',
+  includeIngredients: '',
+  excludeIngredients: '',
+  maxReadyTime: '',
+};
+
 export const FindRecipeForm = () => {
-  const [query, setQuery] = useState({ cuisine: '', type: '' });
-
-  const changeQuery = (field, value) => {
-    setQuery({ ...query, [field]: value });
-  };
-
+  const classes = useStyles();
   const dispatch = useDispatch();
+  const [query, setQuery] = useState(initQuery);
 
-  const findRecipes = (event) => {
+  const changeQuery = useCallback((field: string, value: string) => {
+    setQuery({ ...query, [field]: value });
+  }, [query]);
+
+  const findRecipes = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     dispatch(findRecipesSaga(query));
-  };
+  }, [query]);
+
+  console.log(query)
 
   return (
-    <>
+    <div className={classes.form}>
       <Grid container spacing={3}>
         <Grid item xs={8}>
           <TextField
@@ -97,6 +117,6 @@ export const FindRecipeForm = () => {
           </Button>
         </Grid>
       </Grid>
-    </>
+    </div>
   );
 };

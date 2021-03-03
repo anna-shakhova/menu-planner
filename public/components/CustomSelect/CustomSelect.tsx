@@ -1,10 +1,18 @@
-import React from 'react';
+import * as React from 'react';
+import { FC, useCallback } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { makeStyles } from '@material-ui/core/styles';
+interface CustomSelectProps {
+  label: string,
+  value: string,
+  fieldName: string,
+  onChange: (fieldName: string, value: string) => void,
+  menuItems: string[],
+}
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -15,9 +23,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CustomSelect = (props) => {
+export const CustomSelect: FC<CustomSelectProps> = (props) => {
   const classes = useStyles();
   const { label, value, fieldName, onChange, menuItems } = props;
+
+  const handleChange = useCallback((event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
+    onChange(fieldName, event.target.value as string);
+  }, [fieldName]);
 
   return (
     <FormControl className={classes.formControl}>
@@ -25,7 +37,7 @@ export const CustomSelect = (props) => {
       <Select
         id={`${fieldName}-select`}
         value={value}
-        onChange={(event) => onChange(fieldName, event.target.value)}
+        onChange={handleChange}
       >
         {menuItems.map((item, i) =>
           <MenuItem key={fieldName + i} value={item}>{item}</MenuItem>

@@ -5,7 +5,7 @@ const webpack = require('webpack');
 module.exports = {
   mode: 'development',
   entry: {
-    index: ['@babel/polyfill', './public/index.js'],
+    index: ['@babel/polyfill', './public/index.tsx'],
   },
   devServer: {
     historyApiFallback: true,
@@ -21,12 +21,12 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
   ],
   resolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(jsx?|tsx?)$/,
         exclude: /node_modules/,
         use: ['babel-loader'],
       },

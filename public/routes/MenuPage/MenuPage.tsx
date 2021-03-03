@@ -1,30 +1,28 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import * as React from 'react';
+import { useCallback, useState } from 'react';
 import { Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+
 import { MenuRecipesList } from './MenuRecipesList/MenuRecipesList';
 import { FindRecipeDialog } from './FindRecipeDialog/FindRecipeDialog';
-import { clearFoundRecipesSaga } from '../../redux/modules/recipes/actions';
 
 export const MenuPage = () => {
   const [formOpen, setFormOpen] = useState(false);
-  const dispatch = useDispatch();
 
-  const handleFormOpen = () => {
+  const handleFormOpen = useCallback(() => {
     setFormOpen(true);
-  };
+  }, []);
 
-  const handleFormClose = () => {
+  const handleFormClose = useCallback(() => {
     setFormOpen(false);
-    dispatch(clearFoundRecipesSaga());
-  };
+  }, []);
 
   return (
     <>
       <Fab color="primary" onClick={handleFormOpen}>
         <AddIcon />
       </Fab>
-      <FindRecipeDialog open={formOpen} handleClose={handleFormClose} />
+      {formOpen && <FindRecipeDialog handleClose={handleFormClose} />}
       <MenuRecipesList />
     </>
   );

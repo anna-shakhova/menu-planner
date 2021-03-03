@@ -1,9 +1,15 @@
-import React from 'react';
+import * as React from 'react';
+import { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+
+interface DialogTitleWithCrossProps {
+  title: string,
+  onClose: () => void,
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,16 +24,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const DialogTitleWithCross = (props) => {
+export const DialogTitleWithCross: FC<DialogTitleWithCrossProps> = ({ title, onClose }) => {
   const classes = useStyles();
-  const { title, onClose } = props;
 
   return (
     <MuiDialogTitle disableTypography className={classes.root}>
       <Typography variant="h6">{title}</Typography>
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
+      <IconButton className={classes.closeButton} onClick={onClose}>
+        <CloseIcon />
+      </IconButton>
     </MuiDialogTitle>
   );
 };

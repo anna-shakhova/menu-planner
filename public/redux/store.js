@@ -5,13 +5,16 @@ import { all } from 'redux-saga/effects';
 
 import { productsReducer } from './modules/products/reducer';
 import { recipesReducer } from './modules/recipes/reducer';
+import { shoppingReducer } from './modules/shoppingList/reducer';
 
 import { sagaProducts } from './modules/products/saga';
 import { sagaRecipes } from './modules/recipes/saga';
+import { sagaShopping } from './modules/shoppingList/saga';
 
 const reducers = combineReducers({
   productsReducer,
   recipesReducer,
+  shoppingReducer,
 });
 
 const sagaMiddleware = saga();
@@ -27,6 +30,7 @@ sagaMiddleware.run(
     yield all([
       sagaProducts(),
       sagaRecipes(),
+      sagaShopping(),
     ]);
   },
 );

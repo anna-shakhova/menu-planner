@@ -1,4 +1,5 @@
-import React from 'react';
+import * as React from 'react';
+import { FC } from 'react';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -12,7 +13,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
+
 import { DialogTitleWithCross } from '../../../../components/DialogTitleWithCross/DialogTitleWithCross';
+import { Recipe } from "../../../../types/recipe";
+
+interface RecipeDetailsProps {
+  recipe: Recipe,
+  onClose: () => void,
+}
 
 const useStyles = makeStyles((theme) => ({
   ingredients: {
@@ -31,15 +39,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const RecipeDetails = ({ onClose, recipe }) => {
+export const RecipeDetails: FC<RecipeDetailsProps> = ({ recipe, onClose }) => {
   const classes = useStyles();
 
   return (
-    <Dialog
-      open
-      fullWidth
-      maxWidth="lg"
-    >
+    <Dialog open={true} fullWidth maxWidth="lg">
       <DialogTitleWithCross title={recipe.title} onClose={onClose} />
       <DialogContent>
         <Grid container spacing={2}>
