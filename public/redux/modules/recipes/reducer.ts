@@ -3,15 +3,21 @@ import {
   FIND_RECIPES,
   ADD_RECIPE,
   CLEAR_FOUND_RECIPES,
-  DELETE_RECIPE
+  DELETE_RECIPE,
 } from './actionTypes';
+import { Recipe, RecipeQuery } from '../../../types/recipe';
 
 const initialState = {
   recipes: [],
   foundRecipes: [],
 };
 
-export const recipesReducer = (state = initialState, action) => {
+export interface Action {
+  type: string,
+  payload: number | RecipeQuery | Recipe | Recipe[],
+}
+
+export const recipesReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case GET_RECIPES:
       return {
@@ -40,7 +46,7 @@ export const recipesReducer = (state = initialState, action) => {
     case DELETE_RECIPE:
       return {
         ...state,
-        recipes: state.recipes.filter((recipe) => recipe.spoonacular_id !== action.payload),
+        recipes: state.recipes.filter((recipe: Recipe) => recipe.spoonacular_id !== action.payload as number),
       };
 
     default:

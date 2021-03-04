@@ -2,10 +2,15 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { GET_RECIPES_SAGA } from '../actionTypes';
 import { getRecipesAC } from '../actions';
 import { fetchData } from '../../../utils/fetchData';
+import { Recipe } from '../../../../types/recipe';
+
+interface RecipesResponse {
+  recipes: Recipe[],
+}
 
 function* getRecipesWorker() {
   try {
-    const data = yield call(() => fetchData('http://localhost:3001/recipes', 'GET'));
+    const data: RecipesResponse = yield call(() => fetchData('http://localhost:3001/recipes', 'GET'));
     yield put(getRecipesAC(data.recipes));
   } catch (err) {
     console.log(err);

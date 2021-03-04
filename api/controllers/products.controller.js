@@ -17,7 +17,7 @@ const getAllProducts = async (req, res) => {
 const pcsToGrams = async (product) => {
   const queryUri = 'https://api.spoonacular.com/recipes/convert'
     + `?ingredientName=${product.name}`
-    + `&sourceAmount=${product.quantity}`
+    + `&sourceAmount=${product.amount}`
     + `&sourceUnit=''`
     + `&targetUnit='grams'`
     + `&apiKey=${process.env.API_KEY}`;
@@ -30,7 +30,7 @@ const pcsToGrams = async (product) => {
       console.log(queryUri);
     }
     return {
-      metricQuantity: Math.round(result.targetAmount),
+      metricAmount: Math.round(result.targetAmount),
       metricUnits: 'g',
     };
   } catch (err) {
@@ -42,21 +42,21 @@ const convertToMetric = async (product) => {
   switch (product.units) {
     case 'kg':
       return {
-        metricQuantity: product.quantity * 1000,
+        metricAmount: product.amount * 1000,
         metricUnits: 'g',
       };
     case 'l':
       return {
-        metricQuantity: product.quantity * 1000,
+        metricAmount: product.amount * 1000,
         metricUnits: 'ml',
       };
     case 'pcs': {
-      const { metricQuantity, metricUnits } = await pcsToGrams(product);
-      return { metricQuantity, metricUnits };
+      const { metricAmount, metricUnits } = await pcsToGrams(product);
+      return { metricAmount, metricUnits };
     }
     default:
       return {
-        metricQuantity: product.quantity,
+        metricAmount: product.amount,
         metricUnits: product.units,
       };
   }
@@ -64,8 +64,8 @@ const convertToMetric = async (product) => {
 
 const addProduct = async (req, res) => {
   try {
-    const { metricQuantity, metricUnits } = await convertToMetric(req.body);
-    const newProduct = await Product.create({ ...req.body, metricQuantity, metricUnits });
+    const { metricAmount, metricUnits } = await convertToMetric(req.body);
+    const newProduct = await Product.create({ ...req.body, metricAmount, metricUnits });
     res.json({ ...newProduct._doc, id: newProduct.id });
   } catch (err) {
     console.error(err.message);

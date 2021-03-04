@@ -1,10 +1,16 @@
 import { GET_PRODUCTS, ADD_PRODUCT, DELETE_PRODUCT } from './actionTypes';
+import { Product } from '../../../types/product';
 
 const initialState = {
   products: [],
 };
 
-export const productsReducer = (state = initialState, action) => {
+interface Action {
+  type: string,
+  payload?: string | Product | Product[],
+}
+
+export const productsReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case GET_PRODUCTS:
       return {
@@ -21,7 +27,7 @@ export const productsReducer = (state = initialState, action) => {
     case DELETE_PRODUCT:
       return {
         ...state,
-        products: state.products.filter((product) => product.id !== action.payload),
+        products: state.products.filter((product: Product) => product.id !== action.payload),
       };
 
     default:

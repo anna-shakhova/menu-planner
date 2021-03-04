@@ -39,9 +39,9 @@ export const CustomSelect: FC<CustomSelectProps> = (props) => {
         value={value}
         onChange={handleChange}
       >
-        {menuItems.map((item, i) =>
-          <MenuItem key={fieldName + i} value={item}>{item}</MenuItem>
-        )}
+        {menuItems.map((item) => (
+          <MenuItem key={item} value={item}>{item}</MenuItem>
+        ))}
       </Select>
     </FormControl>
   );

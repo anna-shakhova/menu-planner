@@ -12,28 +12,28 @@ module.exports = {
     port: 3000,
     contentBase: './dist',
     hot: true,
-  },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebPackPlugin({
-      template: 'public/index.html',
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
-  resolve: {
-    extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(jsx?|tsx?)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader'],
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
+    plugins: [
+      new CleanWebpackPlugin(),
+      new HtmlWebPackPlugin({
+        template: 'public/index.html',
+      }),
+      new webpack.HotModuleReplacementPlugin(),
     ],
+    resolve: {
+      extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
+    },
+    module: {
+      rules: [
+        {
+          test: /\.(jsx?|tsx?)$/,
+          exclude: /node_modules/,
+          use: ['babel-loader'],
+        },
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
+        },
+      ],
+    },
   },
 };

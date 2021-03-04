@@ -1,9 +1,9 @@
 export interface Product {
-  id: string,
+  id?: string,
   name: string,
-  quantity: number,
+  amount: number,
   units: string,
-  metricQuantity: number,
+  metricAmount: number,
   metricUnits: string,
-  bestBefore: number,
+  bestBefore?: number,
 }

@@ -24,7 +24,7 @@ export const ProductsTable = () => {
         <TableHead>
           <TableRow>
             <TableCell>Ingredient</TableCell>
-            <TableCell align="center">Quantity</TableCell>
+            <TableCell align="center">Amount</TableCell>
             <TableCell align="center">Units</TableCell>
             <TableCell align="right" width="50" />
             <TableCell align="right" width="50" />

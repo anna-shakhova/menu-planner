@@ -3,7 +3,7 @@ import { DELETE_RECIPE_SAGA } from '../actionTypes';
 import { deleteRecipeAC } from '../actions';
 import { fetchData } from '../../../utils/fetchData';
 
-function* deleteRecipeWorker(action) {
+function* deleteRecipeWorker(action: ReturnType<typeof deleteRecipeAC>) {
   try {
     yield call(() => fetchData('http://localhost:3001/recipes', 'DELETE', { spoonacular_id: action.payload }));
     yield put(deleteRecipeAC(action.payload));

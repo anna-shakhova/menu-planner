@@ -38,7 +38,7 @@ export const AisleAccordion: FC<AisleAccordionProps> = ({ ingredientAisle }) => 
             <TableHead>
               <TableRow>
                 <TableCell>Ingredient</TableCell>
-                <TableCell align="center" width="150">Quantity</TableCell>
+                <TableCell align="center" width="150">Amount</TableCell>
                 <TableCell align="center" width="150">Units</TableCell>
               </TableRow>
             </TableHead>

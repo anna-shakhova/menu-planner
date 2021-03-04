@@ -35,5 +35,6 @@ module.exports = {
     'import/extensions': ['off', { jsx: 'never', js: 'never', tsx: 'never', ts: 'never' }],
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
+    'react/jsx-boolean-value': 0,
   },
 };

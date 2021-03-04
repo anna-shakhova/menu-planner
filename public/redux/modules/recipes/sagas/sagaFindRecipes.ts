@@ -1,13 +1,14 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { FIND_RECIPES_SAGA } from '../actionTypes';
-import { findRecipesAC } from '../actions';
+import { findRecipesAC, findRecipesSaga } from '../actions';
 import { fetchData } from '../../../utils/fetchData';
 import { composeQuery } from '../../../utils/composeQuery';
+import { Recipe } from '../../../../types/recipe';
 
-function* findRecipesWorker(action) {
+function* findRecipesWorker(action: ReturnType<typeof findRecipesSaga>) {
   try {
     const queryUri = composeQuery('http://localhost:3001/api/recipes/complexSearch', action.payload);
-    const recipes = yield call(() => fetchData(queryUri, 'GET'));
+    const recipes: Recipe[] = yield call(() => fetchData(queryUri, 'GET'));
     yield put(findRecipesAC(recipes));
   } catch (err) {
     console.log(err);

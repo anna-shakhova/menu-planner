@@ -31,15 +31,13 @@ export const FindRecipeForm = () => {
   const [query, setQuery] = useState(initQuery);
 
   const changeQuery = useCallback((field: string, value: string) => {
-    setQuery({ ...query, [field]: value });
+    setQuery((state) => ({ ...state, [field]: value }));
   }, [query]);
 
   const findRecipes = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     dispatch(findRecipesSaga(query));
   }, [query]);
-
-  console.log(query)
 
   return (
     <div className={classes.form}>

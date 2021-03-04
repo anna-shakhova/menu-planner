@@ -22,3 +22,12 @@ export interface Recipe {
   ingredients: Ingredient[],
   instructions: Instruction[],
 }
+
+export interface RecipeQuery {
+  query: string,
+  cuisine?: string,
+  type?: string,
+  includeIngredients?: string,
+  excludeIngredients?: string,
+  maxReadyTime?: string,
+}
