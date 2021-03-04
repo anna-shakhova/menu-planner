@@ -5,7 +5,7 @@ import { fetchData } from '../../../utils/fetchData';
 
 function* addRecipeWorker(action: ReturnType<typeof addRecipeAC>) {
   try {
-    yield call(() => fetchData('http://localhost:3001/recipes', 'POST', action.payload));
+    yield call(() => fetchData('/api/recipes', 'POST', action.payload));
     yield put(addRecipeAC(action.payload));
   } catch (err) {
     console.log(err);

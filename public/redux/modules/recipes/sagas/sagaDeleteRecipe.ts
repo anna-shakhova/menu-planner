@@ -5,7 +5,7 @@ import { fetchData } from '../../../utils/fetchData';
 
 function* deleteRecipeWorker(action: ReturnType<typeof deleteRecipeAC>) {
   try {
-    yield call(() => fetchData('http://localhost:3001/recipes', 'DELETE', { spoonacular_id: action.payload }));
+    yield call(() => fetchData('/api/recipes', 'DELETE', { spoonacular_id: action.payload }));
     yield put(deleteRecipeAC(action.payload));
   } catch (err) {
     console.log(err);

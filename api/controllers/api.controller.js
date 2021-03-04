@@ -31,7 +31,7 @@ const parseApiRecipeData = (arr) => {
 };
 
 const complexSearch = async (req, res) => {
-  const apiUrl = 'https://api.spoonacular.com' + req.originalUrl.slice(4)
+  const apiUrl = 'https://api.spoonacular.com' + req.originalUrl.slice(16)
     + `&apiKey=${process.env.API_KEY}`
     + '&fillIngredients=true'
     + '&addRecipeInformation=true'

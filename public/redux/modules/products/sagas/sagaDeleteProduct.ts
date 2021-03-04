@@ -5,7 +5,7 @@ import { fetchData } from '../../../utils/fetchData';
 
 function* deleteProductWorker(action: ReturnType<typeof deleteProductAC>) {
   try {
-    yield call(() => fetchData('http://localhost:3001/products', 'DELETE', { id: action.payload }));
+    yield call(() => fetchData('/api/products', 'DELETE', { id: action.payload }));
     yield put(deleteProductAC(action.payload));
   } catch (err) {
     console.log(err);

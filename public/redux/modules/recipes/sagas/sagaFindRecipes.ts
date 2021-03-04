@@ -7,7 +7,7 @@ import { Recipe } from '../../../../types/recipe';
 
 function* findRecipesWorker(action: ReturnType<typeof findRecipesSaga>) {
   try {
-    const queryUri = composeQuery('http://localhost:3001/api/recipes/complexSearch', action.payload);
+    const queryUri = composeQuery('/api/spoonacular/recipes/complexSearch', action.payload);
     const recipes: Recipe[] = yield call(() => fetchData(queryUri, 'GET'));
     yield put(findRecipesAC(recipes));
   } catch (err) {

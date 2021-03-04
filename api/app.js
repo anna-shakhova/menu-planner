@@ -43,8 +43,8 @@ app.use(express.urlencoded({ extended: false }));
 //app.use('/', (req,res) => res.send('express'));
 // app.use('/auth', authRouter);
 // app.use('/user', userRouter);
-app.use('/products', productsRouter);
-app.use('/recipes', recipesRouter);
-app.use('/api', apiRouter);
+app.use('/api/products', productsRouter);
+app.use('/api/recipes', recipesRouter);
+app.use('/api/spoonacular', apiRouter);
 
 module.exports = app;

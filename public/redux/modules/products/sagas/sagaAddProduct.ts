@@ -6,7 +6,7 @@ import { Product } from '../../../../types/product';
 
 function* addProductWorker(action: ReturnType<typeof addProductAC>) {
   try {
-    const product: Product = yield call(() => fetchData('http://localhost:3001/products', 'POST', action.payload));
+    const product: Product = yield call(() => fetchData('/api/products', 'POST', action.payload));
     yield put(addProductAC(product));
   } catch (err) {
     console.log(err);

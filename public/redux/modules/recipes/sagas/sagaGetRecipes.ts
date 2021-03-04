@@ -10,7 +10,7 @@ interface RecipesResponse {
 
 function* getRecipesWorker() {
   try {
-    const data: RecipesResponse = yield call(() => fetchData('http://localhost:3001/recipes', 'GET'));
+    const data: RecipesResponse = yield call(() => fetchData('/api/recipes', 'GET'));
     yield put(getRecipesAC(data.recipes));
   } catch (err) {
     console.log(err);

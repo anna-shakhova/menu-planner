@@ -10,7 +10,7 @@ interface ProductsResponse {
 
 function* getProductsWorker() {
   try {
-    const data: ProductsResponse = yield call(() => fetchData('http://localhost:3001/products', 'GET'));
+    const data: ProductsResponse = yield call(() => fetchData('/api/products', 'GET'));
     yield put(getProductsAC(data.products));
   } catch (err) {
     console.log(err);
