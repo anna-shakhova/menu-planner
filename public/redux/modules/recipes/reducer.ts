@@ -3,7 +3,7 @@ import {
   FIND_RECIPES,
   ADD_RECIPE,
   CLEAR_FOUND_RECIPES,
-  DELETE_RECIPE,
+  DELETE_RECIPE, CHECK_INGREDIENTS,
 } from './actionTypes';
 import { Recipe, RecipeQuery } from '../../../types/recipe';
 
@@ -46,7 +46,18 @@ export const recipesReducer = (state = initialState, action: Action) => {
     case DELETE_RECIPE:
       return {
         ...state,
+        // eslint-disable-next-line max-len
         recipes: state.recipes.filter((recipe: Recipe) => recipe.spoonacular_id !== action.payload as number),
+      };
+
+    case CHECK_INGREDIENTS:
+      return {
+        ...state,
+        recipes: state.recipes.map((recipe: Recipe) => {
+          const checkedRecipe = action.payload as Recipe;
+          // eslint-disable-next-line max-len
+          return (recipe.spoonacular_id === checkedRecipe.spoonacular_id) ? checkedRecipe : recipe;
+        }),
       };
 
     default:

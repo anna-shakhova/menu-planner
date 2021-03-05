@@ -9,6 +9,8 @@ import {
   CLEAR_FOUND_RECIPES_SAGA,
   DELETE_RECIPE,
   DELETE_RECIPE_SAGA,
+  CHECK_INGREDIENTS,
+  CHECK_INGREDIENTS_SAGA,
 } from './actionTypes';
 import { Recipe, RecipeQuery, RecipeStatus } from '../../../types/recipe';
 
@@ -56,5 +58,15 @@ export const deleteRecipeAC = (spoonacular_id: number) => ({
 
 export const deleteRecipeSaga = (recipe: RecipeStatus) => ({
   type: DELETE_RECIPE_SAGA,
+  payload: recipe,
+});
+
+export const checkIngredientsAC = (recipe: Recipe) => ({
+  type: CHECK_INGREDIENTS,
+  payload: recipe,
+});
+
+export const checkIngredientsSaga = (recipe: Recipe) => ({
+  type: CHECK_INGREDIENTS_SAGA,
   payload: recipe,
 });

@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 
 import { RecipeAccordion } from './RecipeAccordion/RecipeAccordion';
-import { Recipe } from "../../../../types/recipe";
+import { Recipe } from '../../../../types/recipe';
 
 interface RootState {
   recipesReducer: {

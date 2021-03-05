@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -11,24 +13,24 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 
 import { DialogTitleWithCross } from '../../../../components/DialogTitleWithCross/DialogTitleWithCross';
-import { Recipe } from "../../../../types/recipe";
+import { Recipe } from '../../../../types/recipe';
+import { IngredientsList } from './IngredientsList/IngredientsList';
 
 interface RecipeDetailsProps {
-  recipe: Recipe,
+  spoonacular_id: number,
   onClose: () => void,
 }
 
+interface RootState {
+  recipesReducer: {
+    recipes: Recipe[],
+  }
+}
+
 const useStyles = makeStyles((theme) => ({
-  ingredients: {
-    columns: 2,
-  },
-  listItem: {
-    padding: 0,
-  },
   instructions: {
     paddingTop: 10,
     color: theme.palette.text.primary,
@@ -39,10 +41,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const RecipeDetails: FC<RecipeDetailsProps> = ({ recipe, onClose }) => {
+export const RecipeDetails: FC<RecipeDetailsProps> = ({ spoonacular_id, onClose }) => {
+  const recipe = useSelector((state: RootState) =>
+    state.recipesReducer.recipes.find((el) => el.spoonacular_id === spoonacular_id));
   const classes = useStyles();
 
-  return (
+  if (recipe) return (
     <Dialog open={true} fullWidth maxWidth="lg">
       <DialogTitleWithCross title={recipe.title} onClose={onClose} />
       <DialogContent>
@@ -62,15 +66,9 @@ export const RecipeDetails: FC<RecipeDetailsProps> = ({ recipe, onClose }) => {
           </Grid>
           <Grid item xs>
             <Typography variant="body1">
-              Ingredients:
+              Ingredients
             </Typography>
-            <List className={classes.ingredients}>
-              {recipe.ingredients.map((el, i) => (
-                <ListItem key={`${recipe.spoonacular_id}_ingr_${i}`} className={classes.listItem}>
-                  <ListItemText primary={el.name} secondary={`${el.amount} ${el.units}`} />
-                </ListItem>
-              ))}
-            </List>
+            <IngredientsList ingredients={recipe.ingredients} spoonacular_id={recipe.spoonacular_id} />
           </Grid>
         </Grid>
         <Divider />
@@ -91,4 +89,6 @@ export const RecipeDetails: FC<RecipeDetailsProps> = ({ recipe, onClose }) => {
       <DialogActions />
     </Dialog>
   );
+
+  return null;
 };

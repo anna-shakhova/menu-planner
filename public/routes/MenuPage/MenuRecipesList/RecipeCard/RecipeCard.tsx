@@ -11,14 +11,20 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import { deleteRecipeSaga } from '../../../../redux/modules/recipes/actions';
-import { Recipe } from "../../../../types/recipe";
+import { Recipe } from '../../../../types/recipe';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import ListItemText from '@material-ui/core/ListItemText';
+import List from '@material-ui/core/List';
 
 interface RecipeCardProps {
   recipe: Recipe,
-  handleClickOpen: (recipe: Recipe) => void,
+  handleClickOpen: (spoonacular_id: number) => void,
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: 300,
   },
@@ -28,7 +34,20 @@ const useStyles = makeStyles({
   media: {
     height: 150,
   },
-});
+  check: {
+    display: 'flex',
+  },
+  available: {
+    color: theme.palette.success.main,
+    minWidth: 40,
+    fontSize: '2.3em',
+  },
+  unAvailable: {
+    color: theme.palette.error.main,
+    minWidth: 40,
+    fontSize: '2.3em',
+  },
+}));
 
 export const RecipeCard: FC<RecipeCardProps> = ({ recipe, handleClickOpen }) => {
   const classes = useStyles();
@@ -39,6 +58,10 @@ export const RecipeCard: FC<RecipeCardProps> = ({ recipe, handleClickOpen }) => 
       spoonacular_id: recipe.spoonacular_id,
       cooked,
     }));
+  }, []);
+
+  const handleOpenRecipe = useCallback(() => {
+    handleClickOpen(recipe.spoonacular_id);
   }, []);
 
   return (
@@ -53,10 +76,20 @@ export const RecipeCard: FC<RecipeCardProps> = ({ recipe, handleClickOpen }) => 
           <Typography gutterBottom variant="h6" component="h5" className={classes.title}>
             {recipe.title}
           </Typography>
+          <List className={classes.check}>
+            <ListItem>
+              <ListItemIcon className={classes.available}><CheckCircleIcon fontSize="inherit" /></ListItemIcon>
+              <ListItemText primary={recipe.ingredients.filter((el) => el.isAvailable).length} />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon className={classes.unAvailable}><RemoveCircleIcon fontSize="inherit" /></ListItemIcon>
+              <ListItemText primary={recipe.ingredients.filter((el) => !el.isAvailable).length} />
+            </ListItem>
+          </List>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary" onClick={() => handleClickOpen(recipe)}>
+        <Button size="small" color="primary" onClick={handleOpenRecipe}>
           Details
         </Button>
         <Button size="small" color="primary" onClick={() => handleDeleteRecipe(true)}>

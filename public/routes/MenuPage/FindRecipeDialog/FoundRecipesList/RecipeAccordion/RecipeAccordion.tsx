@@ -1,9 +1,3 @@
-/**
- * TODO сделать единый компонент ингредиентов и инструкций для информации в меню и в поиске?
- * TODO Не все данные могут присутствовать (например, количество ингредиентов)
- * TODO Стили: с паддигами и без?
- */
-
 import * as React from 'react';
 import { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
@@ -17,7 +11,8 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
 import { addRecipeSaga } from '../../../../../redux/modules/recipes/actions';
-import { Recipe } from "../../../../../types/recipe";
+import { Recipe } from '../../../../../types/recipe';
+import { IngredientsList } from '../../../MenuRecipesList/RecipeDetails/IngredientsList/IngredientsList';
 
 interface RecipeAccordionProps {
   recipe: Recipe
@@ -79,12 +74,13 @@ export const RecipeAccordion: FC<RecipeAccordionProps> = ({ recipe }) => {
                 <Typography gutterBottom variant="subtitle1">
                   {recipe.title}
                 </Typography>
-                <div>
+                <IngredientsList ingredients={recipe.ingredients} spoonacular_id={recipe.spoonacular_id} />
+{/*                <div>
                   Ingredients:
                   <ul className="ingredients-list">
                     {recipe.ingredients.map((el, i) => <li key={`${recipe.spoonacular_id}_${i}`}>{el.name}</li>)}
                   </ul>
-                </div>
+                </div>*/}
                 <Typography variant="body2" color="textSecondary">
                   Servings: {recipe.servings}
                 </Typography>

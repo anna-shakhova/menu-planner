@@ -1,22 +1,25 @@
 const fetch = require('node-fetch');
 
-const parseApiRecipeData = (arr) => {
-  return arr.map((recipe) => {
+const parseApiRecipeData = (arr) => (
+  arr.map((recipe) => {
     const ingredients = recipe.extendedIngredients.map((ingredient) => {
+      const amount = (ingredient.measures.metric.amount < 1)
+        ? ingredient.measures.metric.amount
+        : Math.round(ingredient.measures.metric.amount);
       return ({
-        amount: Math.round(ingredient.measures.metric.amount),
+        amount: amount,
         units: ingredient.measures.metric.unitShort,
         name: ingredient.name,
         consistency: ingredient.consistency,
         aisle: ingredient.aisle,
       });
     });
-    const instructions = recipe.analyzedInstructions[0].steps.map((step) => {
-      return ({
-        number: step.number,
-        description: step.step,
-      });
-    });
+
+    const instructions = recipe.analyzedInstructions[0].steps.map((step) => ({
+      number: step.number,
+      description: step.step,
+    }));
+
     return ({
       instructions: instructions,
       spoonacular_id: recipe.id,
@@ -27,8 +30,8 @@ const parseApiRecipeData = (arr) => {
       summary: recipe.summary,
       title: recipe.title,
     });
-  });
-};
+  }));
+
 
 const complexSearch = async (req, res) => {
   const apiUrl = 'https://api.spoonacular.com' + req.originalUrl.slice(16)

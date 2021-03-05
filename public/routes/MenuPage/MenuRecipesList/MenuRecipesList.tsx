@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { useCallback, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 
 import { RecipeCard } from './RecipeCard/RecipeCard';
 import { RecipeDetails } from './RecipeDetails/RecipeDetails';
-import { Recipe } from "../../../types/recipe";
+import { Recipe } from '../../../types/recipe';
+import { checkIngredientsSaga } from '../../../redux/modules/recipes/actions';
 
 interface RootState {
   recipesReducer: {
@@ -13,25 +14,20 @@ interface RootState {
   }
 }
 
-const initialRecipeDetailed: Recipe = {
-  spoonacular_id: 0,
-  title: '',
-  servings: 0,
-  readyInMinutes: 0,
-  imagelink: '',
-  ingredients: [],
-  instructions: [],
-};
-
 export const MenuRecipesList = () => {
+  const dispatch = useDispatch();
   const recipes = useSelector((state: RootState) => state.recipesReducer.recipes);
   const [open, setOpen] = useState(false);
-  const [recipeDetailed, setRecipe] = useState(initialRecipeDetailed);
+  const [recipeDetailed, setRecipe] = useState<number>(0);
 
-  const handleClickOpen = useCallback((recipe: Recipe) => {
-    setRecipe(recipe);
+  useEffect(() => {
+    recipes.forEach((recipe) => dispatch(checkIngredientsSaga(recipe)));
+  }, [recipes.length]);
+
+  const handleClickOpen = useCallback((spoonacular_id: number) => {
+    setRecipe(spoonacular_id);
     setOpen(true);
-  }, []);
+  }, [recipes]);
 
   const handleClose = useCallback(() => {
     setOpen(false);
@@ -51,7 +47,7 @@ export const MenuRecipesList = () => {
         </Grid>
       ))}
 
-      {open && <RecipeDetails onClose={handleClose} recipe={recipeDetailed} />}
+      {open && <RecipeDetails onClose={handleClose} spoonacular_id={recipeDetailed} />}
     </Grid>
   );
 };
