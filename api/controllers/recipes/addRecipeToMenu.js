@@ -1,15 +1,5 @@
 const fetch = require('node-fetch');
-const Recipe = require('../models/recipe.model');
-
-const getMenuRecipes = async (req, res) => {
-  try {
-    const recipes = await Recipe.find().select('-_id').lean();
-    res.json({ recipes });
-  } catch (err) {
-    console.error(err.message);
-    res.sendStatus(500);
-  }
-};
+const Recipe = require('../../models/recipe.model');
 
 const getUnits = (consistency) => {
   switch (consistency) {
@@ -70,18 +60,4 @@ const addRecipeToMenu = async (req, res) => {
   }
 };
 
-const deleteRecipeFromMenu = async (req, res) => {
-  try {
-    await Recipe.findOneAndDelete({ spoonacular_id: req.body.spoonacular_id });
-    res.json({ message: 'recipe deleted' });
-  } catch (err) {
-    console.error(err.message);
-    res.sendStatus(500);
-  }
-};
-
-module.exports = {
-  getMenuRecipes,
-  addRecipeToMenu,
-  deleteRecipeFromMenu,
-};
+module.exports = addRecipeToMenu;

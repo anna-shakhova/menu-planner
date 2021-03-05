@@ -24,8 +24,8 @@ export const ProductRaw: FC<ProductRawProps> = ({ product }) => {
   return (
     <TableRow>
       <TableCell align="left">{product.name}</TableCell>
-      <TableCell align="center">{product.amount}</TableCell>
-      <TableCell align="center">{product.units}</TableCell>
+      <TableCell align="center">{product.metricAmount}</TableCell>
+      <TableCell align="center">{product.metricUnits}</TableCell>
       <TableCell align="right">
         <IconButton>
           <EditIcon />

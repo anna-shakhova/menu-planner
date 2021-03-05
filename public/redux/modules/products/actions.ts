@@ -6,7 +6,7 @@ import {
   DELETE_PRODUCT,
   DELETE_PRODUCT_SAGA,
 } from './actionTypes';
-import { Product } from '../../../types/product';
+import { Product, ProductFromForm } from '../../../types/product';
 
 export const getProductsAC = (products: Product[]) => ({
   type: GET_PRODUCTS,
@@ -22,7 +22,7 @@ export const addProductAC = (product: Product) => ({
   payload: product,
 });
 
-export const addProductSaga = (product: Product) => ({
+export const addProductSaga = (product: ProductFromForm) => ({
   type: ADD_PRODUCT_SAGA,
   payload: product,
 });

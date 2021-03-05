@@ -10,7 +10,7 @@ import {
   DELETE_RECIPE,
   DELETE_RECIPE_SAGA,
 } from './actionTypes';
-import { Recipe, RecipeQuery } from '../../../types/recipe';
+import { Recipe, RecipeQuery, RecipeStatus } from '../../../types/recipe';
 
 export const getRecipesAC = (recipes: Recipe[]) => ({
   type: GET_RECIPES,
@@ -54,7 +54,7 @@ export const deleteRecipeAC = (spoonacular_id: number) => ({
   payload: spoonacular_id,
 });
 
-export const deleteRecipeSaga = (spoonacular_id: number) => ({
+export const deleteRecipeSaga = (recipe: RecipeStatus) => ({
   type: DELETE_RECIPE_SAGA,
-  payload: spoonacular_id,
+  payload: recipe,
 });

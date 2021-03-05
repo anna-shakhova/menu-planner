@@ -53,7 +53,7 @@ export const AddProductForm: FC<AddProductFormProps> = ({ handleFormClose }) => 
           type="text"
           fullWidth
           defaultValue={product.name}
-          onChange={(event) => changeProduct('name', event.target.value)}
+          onChange={(event) => changeProduct('name', event.target.value.toLowerCase())}
         />
         <TextField
           margin="dense"

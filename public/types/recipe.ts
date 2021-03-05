@@ -31,3 +31,8 @@ export interface RecipeQuery {
   excludeIngredients?: string,
   maxReadyTime?: string,
 }
+
+export interface RecipeStatus {
+  spoonacular_id: number,
+  cooked: boolean,
+}

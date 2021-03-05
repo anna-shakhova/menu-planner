@@ -1,9 +1,7 @@
 const express = require('express');
-const {
-  getMenuRecipes,
-  addRecipeToMenu,
-  deleteRecipeFromMenu,
-} = require('../controllers/recipes.controller');
+const getMenuRecipes = require('../controllers/recipes/getMenuRecipes');
+const addRecipeToMenu = require('../controllers/recipes/addRecipeToMenu');
+const deleteRecipeFromMenu = require('../controllers/recipes/deleteRecipeFromMenu');
 
 const router = express.Router();
 

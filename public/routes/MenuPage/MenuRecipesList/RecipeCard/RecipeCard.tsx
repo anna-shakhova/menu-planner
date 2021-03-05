@@ -34,8 +34,11 @@ export const RecipeCard: FC<RecipeCardProps> = ({ recipe, handleClickOpen }) => 
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const handleDeleteRecipe = useCallback(() => {
-    dispatch(deleteRecipeSaga(recipe.spoonacular_id));
+  const handleDeleteRecipe = useCallback((cooked: boolean) => {
+    dispatch(deleteRecipeSaga({
+      spoonacular_id: recipe.spoonacular_id,
+      cooked,
+    }));
   }, []);
 
   return (
@@ -56,10 +59,10 @@ export const RecipeCard: FC<RecipeCardProps> = ({ recipe, handleClickOpen }) => 
         <Button size="small" color="primary" onClick={() => handleClickOpen(recipe)}>
           Details
         </Button>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={() => handleDeleteRecipe(true)}>
           Mark cooked
         </Button>
-        <Button size="small" color="secondary" onClick={handleDeleteRecipe}>
+        <Button size="small" color="secondary" onClick={() => handleDeleteRecipe(false)}>
           Delete
         </Button>
       </CardActions>

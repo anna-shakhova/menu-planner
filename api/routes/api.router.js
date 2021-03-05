@@ -7,7 +7,7 @@ const {
 
 const router = express.Router();
 
-//router.use(apiMocker('/', 'api/mocks/api'));
-router.get('/recipes/complexSearch', complexSearch);
+router.use(apiMocker('/', 'api/mocks/api'));
+//router.get('/recipes/complexSearch', complexSearch);
 
 module.exports = router;
