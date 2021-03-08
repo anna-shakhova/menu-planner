@@ -12,8 +12,7 @@ interface RootState {
 
 function* checkIngredientsWorker(action: ReturnType<typeof checkIngredientsAC>) {
   const products: Product[] = yield select((state: RootState) => state.productsReducer.products);
-  const checkedIngredients = checkRecipeIngredients(action.payload, products);
-  yield put(checkIngredientsAC({ ...action.payload, ingredients: checkedIngredients }));
+  yield put(checkIngredientsAC(checkRecipeIngredients(action.payload, products)));
 }
 
 export function* checkIngredientsWatcher() {

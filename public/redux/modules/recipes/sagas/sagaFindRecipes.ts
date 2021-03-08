@@ -19,11 +19,7 @@ function* findRecipesWorker(action: ReturnType<typeof findRecipesSaga>) {
     const recipes: Recipe[] = yield call(() => fetchData(queryUri, 'GET'));
 
     const products: Product[] = yield select((state: RootState) => state.productsReducer.products);
-    console.log(products)
-    const checkedRecipes = recipes.map((recipe) => ({
-      ...recipe,
-      ingredients: checkRecipeIngredients(recipe, products),
-    }));
+    const checkedRecipes = recipes.map((recipe) => checkRecipeIngredients(recipe, products));
 
     yield put(findRecipesAC(checkedRecipes));
   } catch (err) {
