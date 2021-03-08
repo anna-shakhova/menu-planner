@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const RecipeSchema = new mongoose.Schema({
-  user: { type: mongoose.Types.ObjectId, ref: 'User'},
+  user: { type: mongoose.Types.ObjectId, ref: 'User' },
   title: { type: String, required: true },
   imagelink: { type: String, required: true },
   ingredients: [{

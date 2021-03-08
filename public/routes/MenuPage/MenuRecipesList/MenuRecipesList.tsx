@@ -11,18 +11,25 @@ import { checkIngredientsSaga } from '../../../redux/modules/recipes/actions';
 interface RootState {
   recipesReducer: {
     recipes: Recipe[],
-  }
+  },
+  authReducer: {
+    isAuth: boolean,
+  },
 }
 
 export const MenuRecipesList = () => {
   const dispatch = useDispatch();
   const recipes = useSelector((state: RootState) => state.recipesReducer.recipes);
+  const isAuth = useSelector((state: RootState) => state.authReducer.isAuth);
+
+  console.log('isAuth', isAuth)
+
   const [open, setOpen] = useState(false);
   const [recipeDetailed, setRecipe] = useState<number>(0);
 
   useEffect(() => {
     recipes.forEach((recipe) => dispatch(checkIngredientsSaga(recipe)));
-  }, [recipes.length]);
+  }, [recipes.length, isAuth]);
 
   const handleClickOpen = useCallback((spoonacular_id: number) => {
     setRecipe(spoonacular_id);

@@ -6,15 +6,18 @@ import { all } from 'redux-saga/effects';
 import { productsReducer } from './modules/products/reducer';
 import { recipesReducer } from './modules/recipes/reducer';
 import { shoppingReducer } from './modules/shoppingList/reducer';
+import { authReducer } from './modules/auth/reducer';
 
 import { sagaProducts } from './modules/products/saga';
 import { sagaRecipes } from './modules/recipes/saga';
 import { sagaShopping } from './modules/shoppingList/saga';
+import { sagaAuth } from './modules/auth/saga';
 
 const reducers = combineReducers({
   productsReducer,
   recipesReducer,
   shoppingReducer,
+  authReducer,
 });
 
 const sagaMiddleware = saga();
@@ -31,6 +34,7 @@ sagaMiddleware.run(
       sagaProducts(),
       sagaRecipes(),
       sagaShopping(),
+      sagaAuth(),
     ]);
   },
 );

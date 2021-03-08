@@ -1,10 +1,12 @@
 import * as React from 'react';
 // import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Layout } from './Layout/Layout';
-import { store } from '../redux/store';
+import { Auth } from './Auth/Auth';
+import { useEffect } from 'react';
+import { checkAuthSaga } from '../redux/modules/auth/actions';
 
 /*const myTheme = createMuiTheme({
   palette: {
@@ -23,14 +25,32 @@ import { store } from '../redux/store';
   },
 });*/
 
+interface RootState {
+  authReducer: {
+    isAuth: boolean,
+  }
+}
+
 export default () => {
+  const dispatch = useDispatch();
+  const isAuth = useSelector((state: RootState) => state.authReducer.isAuth);
+
+  useEffect(() => {
+    dispatch(checkAuthSaga());
+  }, []);
+
+  console.log(isAuth)
   return (
-    <Provider store={store}>
+    <>
       {/*<ThemeProvider theme={myTheme}>*/}
-      <BrowserRouter>
-        <Layout />
-      </BrowserRouter>
+      {isAuth
+        ? (
+          <BrowserRouter>
+            <Layout />
+          </BrowserRouter>
+        )
+        : <Auth />}
       {/*</ThemeProvider>*/}
-    </Provider>
+    </>
   );
 };
