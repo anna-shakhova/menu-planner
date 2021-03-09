@@ -5,6 +5,7 @@ import {
   ADD_PRODUCT_SAGA,
   DELETE_PRODUCT,
   DELETE_PRODUCT_SAGA,
+  RESET_PRODUCTS_LOADED,
 } from './actionTypes';
 import { Product, ProductFromForm } from '../../../types/product';
 
@@ -35,4 +36,8 @@ export const deleteProductAC = (id: string) => ({
 export const deleteProductSaga = (id: string) => ({
   type: DELETE_PRODUCT_SAGA,
   payload: id,
+});
+
+export const resetProductsLoadedAC = () => ({
+  type: RESET_PRODUCTS_LOADED,
 });

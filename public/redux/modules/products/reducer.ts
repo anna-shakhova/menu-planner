@@ -1,8 +1,9 @@
-import { GET_PRODUCTS, ADD_PRODUCT, DELETE_PRODUCT } from './actionTypes';
+import { GET_PRODUCTS, ADD_PRODUCT, DELETE_PRODUCT, RESET_PRODUCTS_LOADED } from './actionTypes';
 import { Product } from '../../../types/product';
 
 const initialState = {
   products: [],
+  isLoaded: false,
 };
 
 interface Action {
@@ -16,6 +17,7 @@ export const productsReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         products: action.payload,
+        isLoaded: true,
       };
 
     case ADD_PRODUCT:
@@ -29,6 +31,9 @@ export const productsReducer = (state = initialState, action: Action) => {
         ...state,
         products: state.products.filter((product: Product) => product.id !== action.payload),
       };
+
+    case RESET_PRODUCTS_LOADED:
+      return initialState;
 
     default:
       return state;

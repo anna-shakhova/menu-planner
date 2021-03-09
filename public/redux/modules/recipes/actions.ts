@@ -11,6 +11,7 @@ import {
   DELETE_RECIPE_SAGA,
   CHECK_INGREDIENTS,
   CHECK_INGREDIENTS_SAGA,
+  RESET_RECIPES_LOADED,
 } from './actionTypes';
 import { Recipe, RecipeQuery, RecipeStatus } from '../../../types/recipe';
 
@@ -61,12 +62,16 @@ export const deleteRecipeSaga = (recipe: RecipeStatus) => ({
   payload: recipe,
 });
 
-export const checkIngredientsAC = (recipe: Recipe) => ({
+export const checkIngredientsAC = (recipes: Recipe[]) => ({
   type: CHECK_INGREDIENTS,
-  payload: recipe,
+  payload: recipes,
 });
 
-export const checkIngredientsSaga = (recipe: Recipe) => ({
+export const checkIngredientsSaga = (recipes: Recipe[]) => ({
   type: CHECK_INGREDIENTS_SAGA,
-  payload: recipe,
+  payload: recipes,
+});
+
+export const resetRecipesLoadedAC = () => ({
+  type: RESET_RECIPES_LOADED,
 });

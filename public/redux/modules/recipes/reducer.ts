@@ -4,12 +4,14 @@ import {
   ADD_RECIPE,
   CLEAR_FOUND_RECIPES,
   DELETE_RECIPE, CHECK_INGREDIENTS,
+  RESET_RECIPES_LOADED,
 } from './actionTypes';
 import { Recipe, RecipeQuery } from '../../../types/recipe';
 
 const initialState = {
   recipes: [],
   foundRecipes: [],
+  isLoaded: false,
 };
 
 export interface Action {
@@ -53,12 +55,11 @@ export const recipesReducer = (state = initialState, action: Action) => {
     case CHECK_INGREDIENTS:
       return {
         ...state,
-        recipes: state.recipes.map((recipe: Recipe) => {
-          const checkedRecipe = action.payload as Recipe;
-          // eslint-disable-next-line max-len
-          return (recipe.spoonacular_id === checkedRecipe.spoonacular_id) ? checkedRecipe : recipe;
-        }),
+        recipes: action.payload,
       };
+
+    case RESET_RECIPES_LOADED:
+      return initialState;
 
     default:
       return state;

@@ -7,8 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ProductsPage } from '../../../routes/ProductsPage/ProductsPage';
 import { MenuPage } from '../../../routes/MenuPage/MenuPage';
 import { ShoppingList } from '../../../routes/ShoppingList/ShoppingList';
-import { getProductsSaga } from '../../../redux/modules/products/actions';
-import { getRecipesSaga } from '../../../redux/modules/recipes/actions';
+import { getProductsSaga, resetProductsLoadedAC } from '../../../redux/modules/products/actions';
+import { getRecipesSaga, resetRecipesLoadedAC } from '../../../redux/modules/recipes/actions';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -32,6 +32,11 @@ export const MainContent = () => {
   useEffect(() => {
     dispatch(getProductsSaga());
     dispatch(getRecipesSaga());
+
+    return () => {
+      dispatch(resetProductsLoadedAC());
+      dispatch(resetRecipesLoadedAC());
+    };
   }, []);
 
   return (

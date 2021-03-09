@@ -5,7 +5,7 @@ import { fetchData } from '../../../utils/fetchData';
 import { composeQuery } from '../../../utils/composeQuery';
 import { Recipe } from '../../../../types/recipe';
 import { Product } from '../../../../types/product';
-import { checkRecipeIngredients } from '../utils/checkRecipeIngredients';
+import { checkRecipesIngredients } from '../utils/checkRecipesIngredients';
 
 interface RootState {
   productsReducer: {
@@ -17,11 +17,10 @@ function* findRecipesWorker(action: ReturnType<typeof findRecipesSaga>) {
   try {
     const queryUri = composeQuery('/api/spoonacular/recipes/complexSearch', action.payload);
     const recipes: Recipe[] = yield call(() => fetchData(queryUri, 'GET'));
-
     const products: Product[] = yield select((state: RootState) => state.productsReducer.products);
-    const checkedRecipes = recipes.map((recipe) => checkRecipeIngredients(recipe, products));
 
-    yield put(findRecipesAC(checkedRecipes));
+    console.log('findRecipesWorker',recipes, products);
+    yield put(findRecipesAC(checkRecipesIngredients(recipes, products)));
   } catch (err) {
     console.log(err);
   }
