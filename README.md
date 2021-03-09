@@ -6,5 +6,6 @@
 Для каждого рецепта отображаются продукты в наличии, для рецептов в поиске - только по названию, для отложенных рецептов также учитывается количество продукта в наличии.
 
 # Стек технологий
-Frontend: TypeScript, React, Redux, Redux-Saga
-Backend: mongoose, express, Node.js
+Frontend: TypeScript, React, Redux, Redux-Saga.
+
+Backend: mongoose, express, Node.js.
