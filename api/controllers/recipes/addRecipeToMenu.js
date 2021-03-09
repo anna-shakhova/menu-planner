@@ -47,7 +47,7 @@ const convertAmounts = async (ingredient) => {
 
 const addRecipeToMenu = async (req, res) => {
   try {
-    const recipe = { ...req.body };
+    const recipe = { ...req.body, user: req.session.user.id };
     for (let i = 0; i < recipe.ingredients.length; i++) {
       const { metricAmount, metricUnits } = await convertAmounts(recipe.ingredients[i]);
       recipe.ingredients[i] = { ...recipe.ingredients[i], metricAmount, metricUnits };

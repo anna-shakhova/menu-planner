@@ -3,7 +3,7 @@ const Product = require('../models/product.model');
 
 const getAllProducts = async (req, res) => {
   try {
-    const productsDB = await Product.find().lean();
+    const productsDB = await Product.find({ user: req.session.user.id }).lean();
     const products = productsDB.map((el) => {
       return { ...el, id: el._id };
     });
@@ -65,7 +65,12 @@ const convertToMetric = async (product) => {
 const addProduct = async (req, res) => {
   try {
     const { metricAmount, metricUnits } = await convertToMetric(req.body);
-    const newProduct = await Product.create({ ...req.body, metricAmount, metricUnits });
+    const newProduct = await Product.create({
+      ...req.body,
+      metricAmount,
+      metricUnits,
+      user: req.session.user.id
+    });
     res.json({ ...newProduct._doc, id: newProduct.id });
   } catch (err) {
     console.error(err.message);

@@ -11,7 +11,6 @@ export interface Ingredient {
   units: string,
   metricAmount: number,
   metricUnits: string,
-  isAvailable?: boolean,
 }
 
 export interface Recipe {
