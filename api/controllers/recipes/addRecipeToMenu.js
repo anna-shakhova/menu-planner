@@ -53,7 +53,7 @@ const addRecipeToMenu = async (req, res) => {
       recipe.ingredients[i] = { ...recipe.ingredients[i], metricAmount, metricUnits };
     }
     const newRecipe = await Recipe.create(recipe);
-    res.json({ id: newRecipe.id });
+    res.json({ ...newRecipe._doc, id: newRecipe.id });
   } catch (err) {
     console.error(err.message);
     res.sendStatus(500);

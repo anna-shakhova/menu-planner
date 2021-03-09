@@ -16,7 +16,6 @@ function* checkIngredientsWorker(action: ReturnType<typeof checkIngredientsAC>) 
   const isLoaded: boolean = yield select((state: RootState) => state.productsReducer.isLoaded);
   if (!isLoaded) yield take(GET_PRODUCTS);
   const products: Product[] = yield select((state: RootState) => state.productsReducer.products);
-  console.log(checkRecipesIngredients(action.payload, products));
   yield put(checkIngredientsAC(checkRecipesIngredients(action.payload, products)));
 }
 

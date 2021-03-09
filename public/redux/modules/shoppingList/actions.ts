@@ -1,7 +1,4 @@
-import {
-  CALC_SHOPPING_LIST_SAGA,
-  CALC_SHOPPING_LIST
-} from './actionTypes';
+import { CALC_SHOPPING_LIST_SAGA, CALC_SHOPPING_LIST } from './actionTypes';
 import { Aisle } from '../../../types/shoppingList';
 
 export const calcShoppingListAC = (shoppingList: Aisle[]) => ({
@@ -12,4 +9,3 @@ export const calcShoppingListAC = (shoppingList: Aisle[]) => ({
 export const calcShoppingListSaga = () => ({
   type: CALC_SHOPPING_LIST_SAGA,
 });
-

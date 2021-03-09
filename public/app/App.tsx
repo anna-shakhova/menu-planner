@@ -39,7 +39,6 @@ export default () => {
     dispatch(checkAuthSaga());
   }, []);
 
-  console.log(isAuth)
   return (
     <>
       {/*<ThemeProvider theme={myTheme}>*/}

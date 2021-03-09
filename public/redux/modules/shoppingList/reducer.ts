@@ -1,5 +1,5 @@
 import { CALC_SHOPPING_LIST } from './actionTypes';
-import { Aisle, ItemsList } from '../../../types/shoppingList';
+import { Aisle } from '../../../types/shoppingList';
 
 const initialState = {
   shoppingList: [],
@@ -7,7 +7,7 @@ const initialState = {
 
 interface Action {
   type: string,
-  payload?: Aisle[] | ItemsList,
+  payload?: Aisle[],
 }
 
 export const shoppingReducer = (state = initialState, action: Action) => {

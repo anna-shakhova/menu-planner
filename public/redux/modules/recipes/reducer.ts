@@ -25,6 +25,7 @@ export const recipesReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         recipes: action.payload,
+        isLoaded: true,
       };
 
     case FIND_RECIPES:
