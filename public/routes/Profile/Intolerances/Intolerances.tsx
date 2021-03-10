@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -11,6 +12,7 @@ import GridList from '@material-ui/core/GridList';
 import { GridListTile } from '@material-ui/core';
 
 import { INTOLERANCES } from '../../../constants';
+import { setUserIntolerancesSaga } from '../../../redux/modules/user/actions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,24 +37,30 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+interface RootState {
+  userReducer: {
+    intolerances: string[],
+  }
+}
+
 export const Intolerances = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const userIntolerances: string[] = [];
-  const initIntolerances = INTOLERANCES.reduce((intoleranceList, intolerance) => ({
-    ...intoleranceList,
-    [intolerance]: userIntolerances.includes(intolerance),
-  }), {});
-  const [intolerances, setIntolerances] = useState(initIntolerances);
+  const userIntolerances = useSelector((state: RootState) => state.userReducer.intolerances);
+
+  const [intolerances, setIntolerances] = useState(userIntolerances);
+
+  useEffect(() => {
+    setIntolerances(userIntolerances);
+  }, [userIntolerances]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIntolerances({
-      ...intolerances,
-      [event.target.name]: event.target.checked,
-    });
+    if (event.target.checked) setIntolerances([...intolerances, event.target.name]);
+    else setIntolerances(intolerances.filter((product) => product !== event.target.name));
   };
 
   const handleSaveIntolerances = () => {
-    console.log(Object.keys(intolerances).filter((intolerance) => intolerances[intolerance]));
+    dispatch(setUserIntolerancesSaga({ intolerances }));
   };
 
   return (
@@ -61,11 +69,17 @@ export const Intolerances = () => {
         <FormLabel component="legend">Check you intolerances </FormLabel>
         <FormGroup className={classes.group}>
           <GridList cols={4} cellHeight="auto" className={classes.list}>
-            {INTOLERANCES.map((intolerance) => (
-              <GridListTile key={intolerance}>
+            {INTOLERANCES.map((product) => (
+              <GridListTile key={product}>
                 <FormControlLabel
-                  control={<Checkbox onChange={handleChange} name={intolerance} />}
-                  label={intolerance}
+                  control={(
+                    <Checkbox
+                      onChange={handleChange}
+                      name={product}
+                      checked={intolerances.includes(product)}
+                    />
+                  )}
+                  label={product}
                 />
               </GridListTile>
             ))}

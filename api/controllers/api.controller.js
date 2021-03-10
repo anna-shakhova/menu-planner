@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const User = require('../models/user.model');
 
 const parseApiRecipeData = (arr) => (
   arr.map((recipe) => {
@@ -32,9 +33,20 @@ const parseApiRecipeData = (arr) => (
     });
   }));
 
+const getUserIntolerances = async (req) => {
+  try {
+    const user = await User.findById(req.session.user.id).select('intolerances');
+    return user.intolerances.join(',');
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 const complexSearch = async (req, res) => {
-  const apiUrl = 'https://api.spoonacular.com' + req.originalUrl.slice(16)
+  const intolerances = await getUserIntolerances(req);
+  const intolerancesQuery = (intolerances !== '') ? `&intolerances=${intolerances}` : '';
+
+  const apiUrl = 'https://api.spoonacular.com' + req.originalUrl.slice(16) + intolerancesQuery
     + `&apiKey=${process.env.API_KEY}`
     + '&fillIngredients=true'
     + '&addRecipeInformation=true'

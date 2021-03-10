@@ -1,5 +1,5 @@
-import { SET_AUTH, SET_AUTH_ERROR } from './actionTypes';
-import { AuthResponse } from '../../../types/user';
+import { SET_AUTH, SET_AUTH_ERROR, SET_USER_INTOLERANCES } from './actionTypes';
+import { AuthError, AuthResponse, IntolerancesResponse } from '../../../types/user';
 
 const initialState = {
   isAuth: false,
@@ -14,7 +14,7 @@ const initialState = {
 
 interface Action {
   type: string,
-  payload: AuthResponse,
+  payload: AuthResponse | IntolerancesResponse,
 }
 
 export const userReducer = (state = initialState, action: Action) => {
@@ -22,14 +22,20 @@ export const userReducer = (state = initialState, action: Action) => {
     case SET_AUTH:
       return {
         ...state,
-        isAuth: action.payload.session,
-        login: action.payload.login,
+        isAuth: (action.payload as AuthResponse).session,
+        login: (action.payload as AuthResponse).login,
       };
 
     case SET_AUTH_ERROR:
       return {
         ...state,
-        error: { ...initialState.error, ...action.payload.error },
+        error: { ...initialState.error, ...action.payload as AuthError },
+      };
+
+    case SET_USER_INTOLERANCES:
+      return {
+        ...state,
+        intolerances: (action.payload as IntolerancesResponse).intolerances,
       };
 
     default:
