@@ -7,7 +7,7 @@ import {
   SET_USER_INTOLERANCES,
   GET_USER_INTOLERANCES_SAGA,
 } from './actionTypes';
-import { AuthResponse, User } from '../../../types/user';
+import { AuthError, AuthResponse, User } from '../../../types/user';
 
 export const setAuthAC = (response: AuthResponse) => ({
   type: SET_AUTH,
@@ -18,7 +18,7 @@ export const checkAuthSaga = () => ({
   type: CHECK_AUTH_SAGA,
 });
 
-export const setAuthErrorAC = (response: AuthResponse) => ({
+export const setAuthErrorAC = (response: AuthError) => ({
   type: SET_AUTH_ERROR,
   payload: response,
 });
