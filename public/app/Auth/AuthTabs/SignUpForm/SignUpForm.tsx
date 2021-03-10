@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setAuthErrorAC, authSaga } from '../../../../redux/modules/auth/actions';
+import { setAuthErrorAC, authSaga } from '../../../../redux/modules/user/actions';
 import { AuthError } from '../../../../types/user';
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +25,7 @@ const initUser = {
 };
 
 interface RootState {
-  authReducer: {
+  userReducer: {
     error: AuthError,
   },
 }
@@ -33,7 +33,7 @@ interface RootState {
 export const SignUpForm = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const error = useSelector((state: RootState) => state.authReducer.error);
+  const error = useSelector((state: RootState) => state.userReducer.error);
 
   const [user, setUser] = useState(initUser);
   const [clicked, setClicked] = useState(false);

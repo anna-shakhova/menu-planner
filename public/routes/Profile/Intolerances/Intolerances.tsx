@@ -1,14 +1,16 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
+import GridList from '@material-ui/core/GridList';
+import { GridListTile } from '@material-ui/core';
 
 import { INTOLERANCES } from '../../../constants';
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,35 +19,59 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     formControl: {
       margin: theme.spacing(3),
+      width: '100%',
     },
-    formGroup: {
-      columns: 2,
+    group: {
+      margin: '20px 0',
+    },
+    list: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+    button: {
+      width: '25%',
+      alignSelf: 'flex-end',
     },
   }),
 );
 
 export const Intolerances = () => {
   const classes = useStyles();
+  const userIntolerances: string[] = [];
+  const initIntolerances = INTOLERANCES.reduce((intoleranceList, intolerance) => ({
+    ...intoleranceList,
+    [intolerance]: userIntolerances.includes(intolerance),
+  }), {});
+  const [intolerances, setIntolerances] = useState(initIntolerances);
 
-  const handleChange = () => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIntolerances({
+      ...intolerances,
+      [event.target.name]: event.target.checked,
+    });
+  };
 
+  const handleSaveIntolerances = () => {
+    console.log(Object.keys(intolerances).filter((intolerance) => intolerances[intolerance]));
   };
 
   return (
     <div className={classes.root}>
       <FormControl className={classes.formControl}>
         <FormLabel component="legend">Check you intolerances </FormLabel>
-        <FormGroup row className={classes.formGroup}>
-          {INTOLERANCES.map((intolerance) => (
-            <FormControlLabel
-              key={intolerance}
-              control={<Checkbox onChange={handleChange} name={intolerance} />}
-              label={intolerance}
-            />
-          ))}
+        <FormGroup className={classes.group}>
+          <GridList cols={4} cellHeight="auto" className={classes.list}>
+            {INTOLERANCES.map((intolerance) => (
+              <GridListTile key={intolerance}>
+                <FormControlLabel
+                  control={<Checkbox onChange={handleChange} name={intolerance} />}
+                  label={intolerance}
+                />
+              </GridListTile>
+            ))}
+          </GridList>
         </FormGroup>
-        <FormHelperText>Be careful</FormHelperText>
-        <Button variant="contained">Save</Button>
+        <Button variant="contained" className={classes.button} onClick={handleSaveIntolerances}>Save</Button>
       </FormControl>
     </div>
   );

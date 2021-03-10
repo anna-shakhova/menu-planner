@@ -61,8 +61,13 @@ const signOut = (req, res, next) => {
   });
 };
 
+const getUserData = (req, res) => {
+  res.json({ session: true, login: req?.session.user.login });
+};
+
 module.exports = {
   signUp,
   signIn,
   signOut,
+  getUserData,
 };

@@ -10,17 +10,17 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import { APP_MENU_ITEMS } from '../../../constants';
-import { signOutSaga } from '../../../redux/modules/auth/actions';
+import { signOutSaga } from '../../../redux/modules/user/actions';
 
 interface RootState {
-  authReducer: {
+  userReducer: {
     login: string,
   },
 }
 
 export const AppMenu = () => {
   const dispatch = useDispatch();
-  const login = useSelector((state: RootState) => state.authReducer.login);
+  const login = useSelector((state: RootState) => state.userReducer.login);
 
   const handleSignOut = () => {
     dispatch(signOutSaga());

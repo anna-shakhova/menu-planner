@@ -9,6 +9,7 @@ const initialState = {
     login: '',
   },
   login: '',
+  intolerances: [],
 };
 
 interface Action {
@@ -16,7 +17,7 @@ interface Action {
   payload: AuthResponse,
 }
 
-export const authReducer = (state = initialState, action: Action) => {
+export const userReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case SET_AUTH:
       return {

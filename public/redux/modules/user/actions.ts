@@ -4,6 +4,8 @@ import {
   SET_AUTH_ERROR,
   AUTH_SAGA,
   SIGN_OUT_SAGA,
+  SET_USER_INTOLERANCES,
+  GET_USER_INTOLERANCES_SAGA,
 } from './actionTypes';
 import { AuthResponse, User } from '../../../types/user';
 
@@ -28,4 +30,13 @@ export const authSaga = (type: string, user: User) => ({
 
 export const signOutSaga = () => ({
   type: SIGN_OUT_SAGA,
+});
+
+export const setUserIntolerancesAC = (intolerances: string[]) => ({
+  type: SET_USER_INTOLERANCES,
+  payload: intolerances,
+});
+
+export const getUserIntolerancesSaga = () => ({
+  type: GET_USER_INTOLERANCES_SAGA,
 });
