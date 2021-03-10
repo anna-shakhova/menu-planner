@@ -32,3 +32,8 @@ export const PRODUCT_UNITS = ['kg', 'g', 'ml', 'l', 'pcs'];
 
 export const INTOLERANCES = ['Dairy', 'Egg', 'Gluten', 'Grain', 'Peanut', 'Seafood', 'Sesame', 'Shellfish', 'Soy',
   'Sulfite', 'Tree Nut', 'Wheat'];
+
+export const AISLES = ['Baking', 'Health Foods', 'Spices and Seasonings', 'Pasta and Rice', 'Bakery/Bread', 'Refrigerated',
+  'Canned and Jarred', 'Frozen', 'Nut butters, Jams, and Honey', 'Oil, Vinegar, Salad Dressing', 'Condiments',
+  'Savory Snacks', 'Milk, Eggs, Other Dairy', 'Ethnic Foods', 'Tea and Coffee', 'Meat', 'Gourmet', 'Sweet Snacks',
+  'Gluten Free', 'Alcoholic Beverages', 'Cereal', 'Nuts', 'Beverages', 'Produce', 'Seafood', 'Cheese', 'Dried Fruits', 'Bread'];
