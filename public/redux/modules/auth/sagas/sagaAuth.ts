@@ -8,8 +8,8 @@ function* authWorker(action: ReturnType<typeof authSaga>) {
   const url = `/api/auth/${action.payload.type}`;
   try {
     const response: AuthResponse = yield call(() => fetchData(url, 'POST', action.payload.user));
-    yield put(setAuthAC(response.session));
-    if (response.error) yield put(setAuthErrorAC(response.error));
+    yield put(setAuthAC(response));
+    if (response.error) yield put(setAuthErrorAC(response));
   } catch (err) {
     console.log(err);
   }

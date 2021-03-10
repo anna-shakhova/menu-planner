@@ -5,20 +5,20 @@ import {
   AUTH_SAGA,
   SIGN_OUT_SAGA,
 } from './actionTypes';
-import { AuthError, User } from '../../../types/user';
+import { AuthResponse, User } from '../../../types/user';
 
-export const setAuthAC = (isAuth: boolean) => ({
+export const setAuthAC = (response: AuthResponse) => ({
   type: SET_AUTH,
-  payload: isAuth,
+  payload: response,
 });
 
 export const checkAuthSaga = () => ({
   type: CHECK_AUTH_SAGA,
 });
 
-export const setAuthErrorAC = (error: AuthError) => ({
+export const setAuthErrorAC = (response: AuthResponse) => ({
   type: SET_AUTH_ERROR,
-  payload: error,
+  payload: response,
 });
 
 export const authSaga = (type: string, user: User) => ({

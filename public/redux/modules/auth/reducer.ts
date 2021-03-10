@@ -1,5 +1,5 @@
 import { SET_AUTH, SET_AUTH_ERROR } from './actionTypes';
-import { AuthError } from '../../../types/user';
+import { AuthResponse } from '../../../types/user';
 
 const initialState = {
   isAuth: false,
@@ -8,11 +8,12 @@ const initialState = {
     password: '',
     login: '',
   },
+  login: '',
 };
 
 interface Action {
   type: string,
-  payload: boolean | AuthError,
+  payload: AuthResponse,
 }
 
 export const authReducer = (state = initialState, action: Action) => {
@@ -20,13 +21,14 @@ export const authReducer = (state = initialState, action: Action) => {
     case SET_AUTH:
       return {
         ...state,
-        isAuth: action.payload,
+        isAuth: action.payload.session,
+        login: action.payload.login,
       };
 
     case SET_AUTH_ERROR:
       return {
         ...state,
-        error: { ...initialState.error, ...action.payload as AuthError },
+        error: { ...initialState.error, ...action.payload.error },
       };
 
     default:

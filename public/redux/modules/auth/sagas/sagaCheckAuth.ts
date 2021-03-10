@@ -7,7 +7,7 @@ import { AuthResponse } from '../../../../types/user';
 function* checkAuthWorker() {
   try {
     const response: AuthResponse = yield call(() => fetchData('/api/auth/check', 'GET'));
-    yield put(setAuthAC(response.session));
+    yield put(setAuthAC(response));
   } catch (err) {
     console.log(err);
   }

@@ -29,3 +29,6 @@ export const MEAL_TYPES = ['main course', 'side dish', 'dessert', 'appetizer', '
   'beverage', 'sauce', 'marinade', 'fingerfood', 'snack', 'drink'];
 
 export const PRODUCT_UNITS = ['kg', 'g', 'ml', 'l', 'pcs'];
+
+export const INTOLERANCES = ['Dairy', 'Egg', 'Gluten', 'Grain', 'Peanut', 'Seafood', 'Sesame', 'Shellfish', 'Soy',
+  'Sulfite', 'Tree Nut', 'Wheat'];

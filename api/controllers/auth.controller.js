@@ -27,7 +27,7 @@ const signUp = async (req, res) => {
     return failAuth(res, { email: 'User with this email is already registered' });
   }
 
-  return res.json({ session: true });
+  return res.json({ session: true, login });
 };
 
 const signIn = async (req, res) => {
@@ -50,7 +50,7 @@ const signIn = async (req, res) => {
     return failAuth(res, err.message);
   }
 
-  return res.json({ session: true });
+  return res.json({ session: true, login: req.session.user.login });
 };
 
 const signOut = (req, res, next) => {

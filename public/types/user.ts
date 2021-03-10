@@ -4,7 +4,7 @@ export interface User {
   password: string,
 }
 
-export interface AuthError {
+interface AuthError {
   email?: string,
   password?: string,
   login?: string,
@@ -13,4 +13,5 @@ export interface AuthError {
 export interface AuthResponse {
   session: boolean,
   error?: AuthError,
+  login?: string,
 }

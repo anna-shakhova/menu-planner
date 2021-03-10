@@ -16,7 +16,7 @@ router.post('/signin', signIn);
 router.get('/signout', signOut);
 
 router.get('/check', isAuth, (req, res) => {
-  res.json({ session: true });
+  res.json({ session: true, login: req?.session.user.login });
 });
 
 module.exports = router;

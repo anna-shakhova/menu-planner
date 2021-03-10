@@ -3,21 +3,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-
-import { SignUpForm } from './SignUpForm/SignUpForm';
-import { SignInForm } from './SignInForm/SignInForm';
-import { TabPanel } from '../../../components/TabPanel/TabPanel';
+import { TabPanel } from '../../components/TabPanel/TabPanel';
+import { Intolerances } from './Intolerances/Intolerances';
+import { Settings } from './Settings/Settings';
 
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    width: 'calc(100% - 60px)',
   },
 });
 
-export const AuthTabs = () => {
+export const Profile = () => {
   const classes = useStyles();
-  const [value, setValue] = React.useState(1);
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (_: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -32,14 +30,14 @@ export const AuthTabs = () => {
         textColor="primary"
         variant="fullWidth"
       >
-        <Tab label="Sign Up" />
-        <Tab label="Sign In" />
+        <Tab label="Intolerances" />
+        <Tab label="Settings" />
       </Tabs>
       <TabPanel value={value} index={0}>
-        <SignUpForm />
+        <Intolerances />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <SignInForm />
+        <Settings />
       </TabPanel>
     </Paper>
   );
