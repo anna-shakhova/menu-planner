@@ -16,7 +16,7 @@ const apiRouter = require('./routes/api.router');
 const app = express();
 
 app.use(cors());
-app.use(express.static('dist'));
+app.use(express.static(path.join(__dirname, '../dist')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -40,6 +40,10 @@ app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/recipes', recipesRouter);
-app.use('/api/spoonacular', apiRouter);
+app.use('/api/spoonacular', apiRouter)
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist'));
+});
 
 module.exports = app;
