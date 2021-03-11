@@ -19,3 +19,7 @@ export interface AuthResponse {
 export interface IntolerancesResponse {
   intolerances: string[],
 }
+
+export interface AislesResponse {
+  aislesNotToCheck: string[],
+}

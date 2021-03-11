@@ -4,15 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
-import GridList from '@material-ui/core/GridList';
-import { GridListTile } from '@material-ui/core';
 
 import { AISLES } from '../../../constants';
-// import { setUserIntolerancesSaga } from '../../../redux/modules/user/actions';
+import { CheckboxesGrid } from '../../../components/CheckboxesGrid/CheckboxesGrid';
+import { setUserAislesSaga } from '../../../redux/modules/user/actions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,44 +19,37 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
       width: '100%',
     },
-    group: {
-      margin: '20px 0',
-    },
-    list: {
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
     button: {
       width: '25%',
       alignSelf: 'flex-end',
     },
-  }),
-);
+  }));
 
 interface RootState {
   userReducer: {
-    aisles: string[],
+    aislesNotToCheck: string[],
   }
 }
 
 export const Settings = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const userAisles: string[] = [];
+  const userAisles = useSelector((state: RootState) => state.userReducer.aislesNotToCheck);
 
   const [aisles, setAisles] = useState(userAisles);
-  //
-  // useEffect(() => {
-  //   setIntolerances(userIntolerances);
-  // }, [userIntolerances]);
+
+  useEffect(() => {
+    setAisles(userAisles);
+  }, [userAisles]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) setAisles([...aisles, event.target.name]);
     else setAisles(aisles.filter((aisle) => aisle !== event.target.name));
   };
 
-  const handleSaveIntolerances = () => {
-    // dispatch(setUserIntolerancesSaga({ intolerances }));
+  const handleSaveAisles = () => {
+    console.log(aisles)
+    dispatch(setUserAislesSaga({ aislesNotToCheck: aisles }));
   };
 
   return (
@@ -69,25 +58,12 @@ export const Settings = () => {
         <FormLabel component="legend">
           Choose supermarket aisles which products should always be marked as available
         </FormLabel>
-        <FormGroup className={classes.group}>
-          <GridList cols={4} cellHeight="auto" className={classes.list}>
-            {AISLES.map((aisle) => (
-              <GridListTile key={aisle}>
-                <FormControlLabel
-                  control={(
-                    <Checkbox
-                      onChange={handleChange}
-                      name={aisle}
-                      checked={aisles.includes(aisle)}
-                    />
-                  )}
-                  label={aisle}
-                />
-              </GridListTile>
-            ))}
-          </GridList>
-        </FormGroup>
-        <Button variant="contained" className={classes.button} onClick={handleSaveIntolerances}>Save</Button>
+        <CheckboxesGrid
+          labels={AISLES}
+          checkedLabels={aisles}
+          handleChange={handleChange}
+        />
+        <Button variant="contained" className={classes.button} onClick={handleSaveAisles}>Save</Button>
       </FormControl>
     </div>
   );

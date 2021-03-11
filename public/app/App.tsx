@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Layout } from './Layout/Layout';
 import { Auth } from './Auth/Auth';
-import { checkAuthSaga, getUserIntolerancesSaga } from '../redux/modules/user/actions';
+import { checkAuthSaga, getUserAislesSaga, getUserIntolerancesSaga } from '../redux/modules/user/actions';
 
 /*const myTheme = createMuiTheme({
   palette: {
@@ -40,7 +40,10 @@ export default () => {
   }, []);
 
   useEffect(() => {
-    if (isAuth) dispatch(getUserIntolerancesSaga());
+    if (isAuth) {
+      dispatch(getUserIntolerancesSaga());
+      dispatch(getUserAislesSaga());
+    }
   }, [isAuth]);
 
   return (
