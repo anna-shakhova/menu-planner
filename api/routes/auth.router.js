@@ -1,10 +1,11 @@
 const express = require('express');
-const isAuth = require('../middlewares/auth.middleware');
+const authMiddleware = require('../middlewares/auth.middleware');
 
 const {
   signUp,
   signIn,
   signOut,
+  getUserData,
 } = require('../controllers/auth.controller');
 
 const router = express.Router();
@@ -15,8 +16,6 @@ router.post('/signin', signIn);
 
 router.get('/signout', signOut);
 
-router.get('/check', isAuth, (req, res) => {
-  res.json({ session: true });
-});
+router.get('/check', authMiddleware, getUserData);
 
 module.exports = router;

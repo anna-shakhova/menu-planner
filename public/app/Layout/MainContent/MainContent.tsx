@@ -9,6 +9,7 @@ import { MenuPage } from '../../../routes/MenuPage/MenuPage';
 import { ShoppingList } from '../../../routes/ShoppingList/ShoppingList';
 import { getProductsSaga, resetProductsLoadedAC } from '../../../redux/modules/products/actions';
 import { getRecipesSaga, resetRecipesLoadedAC } from '../../../redux/modules/recipes/actions';
+import { Profile } from '../../../routes/Profile/Profile';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -51,6 +52,9 @@ export const MainContent = () => {
         </Route>
         <Route exact path="/shoppingList">
           <ShoppingList />
+        </Route>
+        <Route exact path="/profile">
+          <Profile />
         </Route>
         <Route path="/">
           <Redirect to="/menu" />

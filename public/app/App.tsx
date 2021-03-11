@@ -1,12 +1,12 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 // import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Layout } from './Layout/Layout';
 import { Auth } from './Auth/Auth';
-import { useEffect } from 'react';
-import { checkAuthSaga } from '../redux/modules/auth/actions';
+import { checkAuthSaga, getUserAislesSaga, getUserIntolerancesSaga } from '../redux/modules/user/actions';
 
 /*const myTheme = createMuiTheme({
   palette: {
@@ -26,18 +26,25 @@ import { checkAuthSaga } from '../redux/modules/auth/actions';
 });*/
 
 interface RootState {
-  authReducer: {
+  userReducer: {
     isAuth: boolean,
   }
 }
 
 export default () => {
   const dispatch = useDispatch();
-  const isAuth = useSelector((state: RootState) => state.authReducer.isAuth);
+  const isAuth = useSelector((state: RootState) => state.userReducer.isAuth);
 
   useEffect(() => {
     dispatch(checkAuthSaga());
   }, []);
+
+  useEffect(() => {
+    if (isAuth) {
+      dispatch(getUserIntolerancesSaga());
+      dispatch(getUserAislesSaga());
+    }
+  }, [isAuth]);
 
   return (
     <>

@@ -13,4 +13,13 @@ export interface AuthError {
 export interface AuthResponse {
   session: boolean,
   error?: AuthError,
+  login?: string,
+}
+
+export interface IntolerancesResponse {
+  intolerances: string[],
+}
+
+export interface AislesResponse {
+  aislesNotToCheck: string[],
 }

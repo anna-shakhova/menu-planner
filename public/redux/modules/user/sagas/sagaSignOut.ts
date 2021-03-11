@@ -7,7 +7,7 @@ import { AuthResponse } from '../../../../types/user';
 function* signOutWorker() {
   try {
     const response: AuthResponse = yield call(() => fetchData('/api/auth/signout', 'GET'));
-    yield put(setAuthAC(response.session));
+    yield put(setAuthAC(response));
   } catch (err) {
     console.log(err);
   }

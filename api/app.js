@@ -8,6 +8,7 @@ const { sessionStore } = require('./dbConnect.js');
 const userMiddleware = require('./middlewares/user.middleware');
 
 const authRouter = require('./routes/auth.router');
+const userRouter = require('./routes/user.router');
 const productsRouter = require('./routes/products.router');
 const recipesRouter = require('./routes/recipes.router');
 const apiRouter = require('./routes/api.router');
@@ -36,6 +37,7 @@ app.use(
 app.use(userMiddleware);
 
 app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/recipes', recipesRouter);
 app.use('/api/spoonacular', apiRouter);

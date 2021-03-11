@@ -12,9 +12,6 @@ interface RootState {
   recipesReducer: {
     recipes: Recipe[],
   },
-  authReducer: {
-    isAuth: boolean,
-  },
 }
 
 export const MenuRecipesList = () => {
