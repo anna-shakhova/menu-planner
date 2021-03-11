@@ -60,7 +60,14 @@ export const Intolerances = () => {
           checkedLabels={intolerances}
           handleChange={handleChange}
         />
-        <Button variant="contained" className={classes.button} onClick={handleSaveIntolerances}>Save</Button>
+        <Button
+          variant="contained"
+          className={classes.button}
+          onClick={handleSaveIntolerances}
+          color="primary"
+        >
+          Save
+        </Button>
       </FormControl>
     </div>
   );

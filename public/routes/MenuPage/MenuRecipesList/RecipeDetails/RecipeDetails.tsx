@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
   primary: {
     color: '#ffffff',
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.success.main,
   },
 }));
 

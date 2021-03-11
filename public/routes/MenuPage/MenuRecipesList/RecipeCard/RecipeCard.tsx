@@ -9,15 +9,15 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
-import { deleteRecipeSaga } from '../../../../redux/modules/recipes/actions';
-import { Recipe } from '../../../../types/recipe';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
+
+import { deleteRecipeSaga } from '../../../../redux/modules/recipes/actions';
+import { Recipe } from '../../../../types/recipe';
 
 interface RecipeCardProps {
   recipe: Recipe,
@@ -46,6 +46,13 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.error.main,
     minWidth: 40,
     fontSize: '2.3em',
+  },
+  btnLine: {
+    display: 'flex',
+    justifyContent: 'space-around',
+  },
+  details: {
+    color: theme.palette.info.dark,
   },
 }));
 
@@ -88,8 +95,8 @@ export const RecipeCard: FC<RecipeCardProps> = ({ recipe, handleClickOpen }) => 
           </List>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary" onClick={handleOpenRecipe}>
+      <CardActions className={classes.btnLine}>
+        <Button size="small" className={classes.details} onClick={handleOpenRecipe}>
           Details
         </Button>
         <Button size="small" color="primary" onClick={() => handleDeleteRecipe(true)}>

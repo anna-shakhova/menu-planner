@@ -37,6 +37,7 @@ export const CheckboxesGrid: FC<CheckboxesGridProps> = ({ labels, checkedLabels,
                   onChange={handleChange}
                   name={label}
                   checked={checkedLabels.includes(label)}
+                  color="primary"
                 />
               )}
               label={label}

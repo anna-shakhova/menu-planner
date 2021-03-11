@@ -63,7 +63,14 @@ export const Settings = () => {
           checkedLabels={aisles}
           handleChange={handleChange}
         />
-        <Button variant="contained" className={classes.button} onClick={handleSaveAisles}>Save</Button>
+        <Button
+          variant="contained"
+          className={classes.button}
+          onClick={handleSaveAisles}
+          color="primary"
+        >
+          Save
+        </Button>
       </FormControl>
     </div>
   );

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-// import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -8,22 +8,22 @@ import { Layout } from './Layout/Layout';
 import { Auth } from './Auth/Auth';
 import { checkAuthSaga, getUserAislesSaga, getUserIntolerancesSaga } from '../redux/modules/user/actions';
 
-/*const myTheme = createMuiTheme({
+const myTheme = createMuiTheme({
   palette: {
     primary: {
       light: '#6fbf73',
-      main: '#4caf50',
+      main: '#43a047',
       dark: '#357a38',
       contrastText: '#fff',
     },
     secondary: {
-      light: '#ffee33',
-      main: '#ffea00',
-      dark: '#b2a300',
+      light: '#ff6333',
+      main: '#ff3d00',
+      dark: '#b22a00',
       contrastText: '#000',
     },
   },
-});*/
+});
 
 interface RootState {
   userReducer: {
@@ -48,7 +48,7 @@ export default () => {
 
   return (
     <>
-      {/*<ThemeProvider theme={myTheme}>*/}
+      <ThemeProvider theme={myTheme}>
       {isAuth
         ? (
           <BrowserRouter>
@@ -56,7 +56,7 @@ export default () => {
           </BrowserRouter>
         )
         : <Auth />}
-      {/*</ThemeProvider>*/}
+      </ThemeProvider>
     </>
   );
 };

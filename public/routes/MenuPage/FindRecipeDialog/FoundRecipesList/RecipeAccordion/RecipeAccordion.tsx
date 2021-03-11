@@ -33,8 +33,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   button: {
-    backgroundColor: theme.palette.success.main,
-    marginLeft: 16,
+    marginLeft: 32,
   },
 }));
 
@@ -58,9 +57,10 @@ export const RecipeAccordion: FC<RecipeAccordionProps> = ({ recipe }) => {
             <Grid item xs>
               <img className={classes.img} alt={`${recipe.title} image`} src={recipe.imagelink} />
             </Grid>
-            <Grid item xs>
+            <Grid item xs justify="center">
               <Button
                 variant="contained"
+                color="primary"
                 className={classes.button}
                 onClick={(event) => addRecipeToMenu(event)}
               >
@@ -75,12 +75,6 @@ export const RecipeAccordion: FC<RecipeAccordionProps> = ({ recipe }) => {
                   {recipe.title}
                 </Typography>
                 <IngredientsList ingredients={recipe.ingredients} spoonacular_id={recipe.spoonacular_id} />
-{/*                <div>
-                  Ingredients:
-                  <ul className="ingredients-list">
-                    {recipe.ingredients.map((el, i) => <li key={`${recipe.spoonacular_id}_${i}`}>{el.name}</li>)}
-                  </ul>
-                </div>*/}
                 <Typography variant="body2" color="textSecondary">
                   Servings: {recipe.servings}
                 </Typography>

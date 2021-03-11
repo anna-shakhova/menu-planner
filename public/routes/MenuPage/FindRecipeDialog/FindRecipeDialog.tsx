@@ -25,7 +25,7 @@ export const FindRecipeDialog: FC<FindRecipeDialogProps> = ({ handleClose }) => 
   }, []);
 
   return (
-    <Dialog open={true} fullWidth maxWidth="lg">
+    <Dialog open={true} fullWidth maxWidth="md">
       <DialogTitleWithCross title="Find recipes" onClose={handleClose} />
       <DialogContent>
         <DialogContentText>

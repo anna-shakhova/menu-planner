@@ -6,7 +6,6 @@ const data = {
 };
 
 const { parseApiRecipeData } = require('../../../../controllers/api.controller');
-const Product = require('../../../../models/product.model');
 
 module.exports = async (request, response) => {
   return response.json(parseApiRecipeData(data[request.query.query].results));

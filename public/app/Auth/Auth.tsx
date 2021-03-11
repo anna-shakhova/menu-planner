@@ -2,8 +2,7 @@ import * as React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
+import LocalDiningIcon from '@material-ui/icons/LocalDining';
 import { makeStyles } from '@material-ui/core/styles';
 import { AuthTabs } from './AuthTabs/AuthTabs';
 
@@ -20,14 +19,16 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: 'center',
   },
   paper: {
-    // margin: theme.spacing(8, 4),
+    margin: theme.spacing(8, 4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
   avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    margin: theme.spacing(2, 0, 10, 0),
+    backgroundColor: theme.palette.warning.main,
+    width: theme.spacing(7),
+    height: theme.spacing(7),
   },
 }));
 
@@ -40,11 +41,8 @@ export const Auth = () => {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            <LocalDiningIcon fontSize="large" />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
           <AuthTabs />
         </div>
       </Grid>

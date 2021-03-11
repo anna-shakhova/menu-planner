@@ -11,6 +11,9 @@ interface RootState {
   productsReducer: {
     products: Product[],
   },
+  userReducer: {
+    aislesNotToCheck: string[],
+  },
 }
 
 function* findRecipesWorker(action: ReturnType<typeof findRecipesSaga>) {
@@ -18,8 +21,9 @@ function* findRecipesWorker(action: ReturnType<typeof findRecipesSaga>) {
     const queryUri = composeQuery('/api/spoonacular/recipes/complexSearch', action.payload);
     const recipes: Recipe[] = yield call(() => fetchData(queryUri, 'GET'));
     const products: Product[] = yield select((state: RootState) => state.productsReducer.products);
+    const aislesNotToCheck: string[] = yield select((state: RootState) => state.userReducer.aislesNotToCheck);
 
-    yield put(findRecipesAC(checkRecipesIngredients(recipes, products)));
+    yield put(findRecipesAC(checkRecipesIngredients(recipes, products, aislesNotToCheck)));
   } catch (err) {
     console.log(err);
   }

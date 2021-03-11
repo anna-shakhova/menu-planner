@@ -73,7 +73,7 @@ export const AddProductForm: FC<AddProductFormProps> = ({ handleFormClose }) => 
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleFormClose} color="primary">
+        <Button onClick={handleFormClose} color="secondary">
           Cancel
         </Button>
         <Button type="submit" onClick={addProduct} color="primary">
