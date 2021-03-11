@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client:start": "webpack serve --open",
     "server:start": "nodemon api/server.js",
-    "start": "npm run server:start & npm run client:start"
+    "start": "npm run server:start & npm run client:start",
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
