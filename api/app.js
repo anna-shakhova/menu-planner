@@ -15,7 +15,15 @@ const apiRouter = require('./routes/api.router');
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  // origin: /\.your.domain\.com$/,    // reqexp will match all prefixes
+  origin: '*',
+  methods: 'GET,HEAD,POST,PATCH,DELETE,OPTIONS',
+  credentials: true,                // required to pass
+  allowedHeaders: 'Content-Type, Authorization, X-Requested-With',
+};
+
+app.use(cors(corsOptions));
 app.use(express.static(path.join(__dirname, '../dist')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
