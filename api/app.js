@@ -40,6 +40,10 @@ app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/recipes', recipesRouter);
-app.use('/api/spoonacular', apiRouter)
+app.use('/api/spoonacular', apiRouter);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+});
 
 module.exports = app;
