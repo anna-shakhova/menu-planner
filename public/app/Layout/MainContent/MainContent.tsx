@@ -57,7 +57,7 @@ export const MainContent = () => {
           <Profile />
         </Route>
         <Route path="/">
-          <Redirect to="/menu" />
+          <Redirect to="/profile" />
         </Route>
       </Switch>
     </main>
