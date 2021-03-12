@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client:start": "webpack serve --open",
-    "server:start": "nodemon api/server.js",
-    "start": "node api/server.js",
+    "server:start": "nodemon server.js",
+    "start": "node server.js",
     "build": "webpack"
   },
   "author": "",

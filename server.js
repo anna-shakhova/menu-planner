@@ -1,5 +1,5 @@
-const { dbConnection } = require('./dbConnect.js');
-const app = require('./app.js');
+const { dbConnection } = require('./api/dbConnect.js');
+const app = require('./api/app.js');
 
 dbConnection
   .on('connected', () => {
